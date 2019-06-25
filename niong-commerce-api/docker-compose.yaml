@@ -1,0 +1,22 @@
+version: '3.0'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./docker-compose-files:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_DATABASE: niong-commerce
+  serve:
+    image: node
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: bash -c "npm i && npm start"
+    environment:
+      NODE_ENV: local_docker
