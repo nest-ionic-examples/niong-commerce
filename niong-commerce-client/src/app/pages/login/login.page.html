@@ -1,0 +1,27 @@
+<mat-toolbar>
+  <matx-menu-button></matx-menu-button>
+  <div class="col">Login</div>
+</mat-toolbar>
+
+<section class="container pt-3">
+  <form #form="ngForm" (submit)="submit()">
+    <matx-input label="Username" name="username" #username="ngModel" [(ngModel)]="model.username"
+                required maxlength="20" minlength="5">
+      <matx-errors [field]="username"></matx-errors>
+    </matx-input>
+
+    <matx-input label="Password" name="password" #password="ngModel" [(ngModel)]="model.password"
+                type="password" required maxlength="20" minlength="5">
+      <matx-errors [field]="password"></matx-errors>
+    </matx-input>
+
+    <div class="row">
+      <div class="col-6">
+        <button mat-raised-button type="submit" class="w-100" color="primary" [disabled]="form.invalid">Login</button>
+      </div>
+      <div class="col-6">
+        <button mat-raised-button type="button" class="w-100" routerLink="/sign-up">Sign up</button>
+      </div>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,30 @@
+@import "../theme/variables.scss";
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 300px;
+}
+
+.mat-list-item.active {
+  background-color: $primary;
+  color: $primary-contrast;
+}
+
+mat-sidenav-content {
+  ::ng-deep > router-outlet + * {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    & > section {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      height: 0;
+    }
+  }
+}
