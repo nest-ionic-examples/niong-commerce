@@ -1,0 +1,1608 @@
+{
+	"info": {
+		"_postman_id": "b47efe97-7c93-4451-a2fd-162d52aa8c45",
+		"name": "niong-commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "sign-up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "196aefe7-4783-4636-8cad-e7fca4803f60",
+								"exec": [
+									"pm.test(\"Sign-up\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"User Created Successfully\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"customer\",\n\t\"email\": \"customer@test.com\",\n\t\"lastName\": \"customer_last\",\n\t\"firstName\": \"customer_first\",\n\t\"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/sign-up",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "196aefe7-4783-4636-8cad-e7fca4803f60",
+								"exec": [
+									"pm.environment.set(\"cust_token\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"customer\",\n\t\"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seller login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "196aefe7-4783-4636-8cad-e7fca4803f60",
+								"exec": [
+									"pm.environment.set(\"seller_token\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"seller\",\n\t\"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "196aefe7-4783-4636-8cad-e7fca4803f60",
+								"exec": [
+									"pm.environment.set(\"admin_token\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "831841de-659d-4d3d-a7e8-18c2c6eb28f4",
+								"exec": [
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData._id) pm.environment.set(\"custId\", jsonData._id);",
+									"    pm.expect(jsonData.role).to.eql(\"CUSTOMER\");",
+									"    pm.expect(jsonData.username).to.eql(\"customer\");",
+									"    pm.expect(jsonData.email).to.eql(\"customer@test.com\");",
+									"    pm.expect(jsonData.firstName).to.eql(\"customer_first\");",
+									"    pm.expect(jsonData.lastName).to.eql(\"customer_last\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "users - by customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fe83ffa-b30c-4592-bc9b-2b1c96b04d85",
+								"exec": [
+									"",
+									"pm.test(\"Get users\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Forbidden resource\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users - by admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fe83ffa-b30c-4592-bc9b-2b1c96b04d85",
+								"exec": [
+									"",
+									"pm.test(\"Get users by admin\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.items.length).to.eql(3);",
+									"    pm.expect(jsonData.number).to.eql(1);",
+									"    pm.expect(jsonData.size).to.eql(20);",
+									"    pm.expect(jsonData.total).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users - by seller",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fe83ffa-b30c-4592-bc9b-2b1c96b04d85",
+								"exec": [
+									"",
+									"pm.test(\"Get users by admin\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.items.length).to.eql(3);",
+									"    pm.expect(jsonData.number).to.eql(1);",
+									"    pm.expect(jsonData.size).to.eql(20);",
+									"    pm.expect(jsonData.total).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "928abd02-fdee-4df7-8eef-440a41516cf0",
+								"exec": [
+									"pm.test(\"Create Product\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData._id) pm.environment.set(\"userId\", jsonData._id);",
+									"    pm.expect(jsonData.role).to.eql('CUSTOMER');",
+									"    pm.expect(jsonData.username).to.eql('user1');",
+									"    pm.expect(jsonData.email).to.eql('user1@test.com');",
+									"    pm.expect(jsonData.lastName).to.eql(\"user1_last\");",
+									"    pm.expect(jsonData.firstName).to.eql(\"user1_first\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"user1\",\n\t\"email\": \"user1@test.com\",\n\t\"lastName\": \"user1_last\",\n\t\"firstName\": \"user1_first\",\n\t\"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users/:id - by user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "22fb1300-fdbb-48ec-a650-417179d8ae20",
+								"exec": [
+									"pm.test(\"Get users/:id by user\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Forbidden resource\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users/:id - by seller",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "22fb1300-fdbb-48ec-a650-417179d8ae20",
+								"exec": [
+									"pm.test(\"Get users/:id by seller\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.role).to.eql('CUSTOMER');",
+									"    pm.expect(jsonData.username).to.eql('user1');",
+									"    pm.expect(jsonData.email).to.eql('user1@test.com');",
+									"    pm.expect(jsonData.lastName).to.eql(\"user1_last\");",
+									"    pm.expect(jsonData.firstName).to.eql(\"user1_first\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users/:id - by admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "22fb1300-fdbb-48ec-a650-417179d8ae20",
+								"exec": [
+									"pm.test(\"Get users/:id by admin\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.role).to.eql('CUSTOMER');",
+									"    pm.expect(jsonData.username).to.eql('user1');",
+									"    pm.expect(jsonData.email).to.eql('user1@test.com');",
+									"    pm.expect(jsonData.lastName).to.eql(\"user1_last\");",
+									"    pm.expect(jsonData.firstName).to.eql(\"user1_first\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/:id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "create product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "928abd02-fdee-4df7-8eef-440a41516cf0",
+								"exec": [
+									"pm.test(\"Create Product\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData._id) pm.environment.set(\"productId\", jsonData._id);",
+									"    pm.expect(jsonData.title).to.eql('Product1');",
+									"    pm.expect(jsonData.image).to.eql('product1_image');",
+									"    pm.expect(jsonData.description).to.eql('Product1 description');",
+									"    pm.expect(jsonData.price).to.eql(100);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Product1\",\n\t\"image\": \"product1_image\",\n\t\"description\": \"Product1 description\",\n\t\"price\": 100\n}"
+						},
+						"url": {
+							"raw": "{{url}}/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2005e740-270c-48e3-86bc-a59f8cfb9752",
+								"exec": [
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.title).to.eql('Product1');",
+									"    pm.expect(jsonData.image).to.eql('product1_image');",
+									"    pm.expect(jsonData.description).to.eql('Product1 description');",
+									"    pm.expect(jsonData.price).to.eql(100);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/products/{{productId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2005e740-270c-48e3-86bc-a59f8cfb9752",
+								"exec": [
+									"pm.test(\"Update Product\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.title).to.eql('Product1');",
+									"    pm.expect(jsonData.image).to.eql('product1_image');",
+									"    pm.expect(jsonData.description).to.eql('Product1 description updated');",
+									"    pm.expect(jsonData.price).to.eql(100);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"{{productId}}\",\n\t\"title\": \"Product1\",\n\t\"image\": \"product1_image\",\n\t\"description\": \"Product1 description updated\",\n\t\"price\": 100\n}"
+						},
+						"url": {
+							"raw": "{{url}}/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55afcbc6-2d0a-4b9a-b542-c445553c82d7",
+								"exec": [
+									"pm.test(\"Delete Product\", function () {",
+									"    pm.expect(pm.response.json()._id).to.eql(pm.environment.get(\"productId\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/products/{{productId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "928abd02-fdee-4df7-8eef-440a41516cf0",
+								"exec": [
+									"pm.test(\"Update Product\", function() {",
+									"    var items = pm.response.json();",
+									"    pm.environment.set(\"productsIds\", items.map(item => '\"' + item._id + '\"'));",
+									"    pm.expect(items[0].title).to.eql('Product1');",
+									"    pm.expect(items[0].image).to.eql('product1_image');",
+									"    pm.expect(items[0].description).to.eql('Product1 description');",
+									"    pm.expect(items[0].price).to.eql(100);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\t\"title\": \"Product1\",\n\t\t\"image\": \"product1_image\",\n\t\t\"description\": \"Product1 description\",\n\t\t\"price\": 100\n\t},\t{\n\t\t\"title\": \"Product2\",\n\t\t\"image\": \"product2_image\",\n\t\t\"description\": \"Product2 description\",\n\t\t\"price\": 200\n\t}\n]"
+						},
+						"url": {
+							"raw": "{{url}}/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fe83ffa-b30c-4592-bc9b-2b1c96b04d85",
+								"exec": [
+									"",
+									"pm.test(\"Get users\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"productsIds\", jsonData.items.map(item => '\"' + item._id + '\"'));",
+									"    pm.expect(jsonData.items.length).to.eql(2);",
+									"    pm.expect(jsonData.number).to.eql(1);",
+									"    pm.expect(jsonData.size).to.eql(20);",
+									"    pm.expect(jsonData.total).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f24111e2-b510-411e-8a68-b0af0b082776",
+								"exec": [
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.n).to.eql(2);",
+									"    pm.expect(jsonData.ok).to.eql(1);",
+									"    pm.expect(jsonData.deletedCount).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ids\": [{{productsIds}}]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9ffb0d38-577d-4710-aa7f-8e5116f1c6cf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "84308442-d147-4600-ada0-121780accdd7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "create product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "928abd02-fdee-4df7-8eef-440a41516cf0",
+								"exec": [
+									"pm.test(\"Create Product\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"productId\", jsonData._id);",
+									"    pm.expect(jsonData.title).to.eql('Product1');",
+									"    pm.expect(jsonData.image).to.eql('product1_image');",
+									"    pm.expect(jsonData.description).to.eql('Product1 description');",
+									"    pm.expect(jsonData.price).to.eql(100);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Product1\",\n\t\"image\": \"product1_image\",\n\t\"description\": \"Product1 description\",\n\t\"price\": 100\n}"
+						},
+						"url": {
+							"raw": "{{url}}/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e28a478d-a994-4161-9f85-2f7d140287d2",
+								"exec": [
+									"pm.test(\"Create Order\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"orderId\", jsonData._id);",
+									"    pm.expect(jsonData.total).to.eql(100);",
+									"    pm.expect(jsonData.orderLines[0].product._id).to.eql(pm.variables.get(\"productId\"));",
+									"    pm.expect(jsonData.orderLines[0].product.title).to.eql(\"Product1\");",
+									"    pm.expect(jsonData.orderLines[0].product.description).to.eql(\"Product1 description\");",
+									"    pm.expect(jsonData.orderLines[0].product.price).to.eql(100);",
+									"    pm.expect(jsonData.orderLines[0].quantity).to.eql(1);",
+									"    pm.expect(jsonData.owner).to.eql(pm.variables.get(\"custId\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"total\": 100,\n\t\"orderLines\": [\n\t\t{\n\t\t\t\"product\": {\n\t\t\t\t\"_id\": \"{{productId}}\",\n\t\t\t\t\"title\": \"Product1\",\n\t\t\t\t\"image\": \"product1_image\",\n\t\t\t\t\"description\": \"Product1 description\",\n\t\t\t\t\"price\": 100\n\t\t\t},\n\t\t\t\"quantity\": 1\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer update order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e28a478d-a994-4161-9f85-2f7d140287d2",
+								"exec": [
+									"pm.test(\"Customer Update Order\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.statusCode).to.eql(403);",
+									"    pm.expect(jsonData.message).to.eql(\"Your Permissions are not enough to complete this operation\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"{{orderId}}\",\n\t\"total\": 200,\n\t\"orderLines\": [\n\t\t{\n\t\t\t\"product\": {\n\t\t\t\t\"_id\": \"{{productId}}\",\n\t\t\t\t\"title\": \"Product1\",\n\t\t\t\t\"image\": \"product1_image\",\n\t\t\t\t\"description\": \"Product1 description\",\n\t\t\t\t\"price\": 100\n\t\t\t},\n\t\t\t\"quantity\": 2\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seller update order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e28a478d-a994-4161-9f85-2f7d140287d2",
+								"exec": [
+									"pm.test(\"Seller Update Order\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total).to.eql(200);",
+									"    pm.expect(jsonData.orderLines[0].product._id).to.eql(pm.variables.get(\"productId\"));",
+									"    pm.expect(jsonData.orderLines[0].product.title).to.eql(\"Product1\");",
+									"    pm.expect(jsonData.orderLines[0].product.description).to.eql(\"Product1 description\");",
+									"    pm.expect(jsonData.orderLines[0].product.price).to.eql(100);",
+									"    pm.expect(jsonData.orderLines[0].quantity).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"{{orderId}}\",\n\t\"total\": 200,\n\t\"orderLines\": [\n\t\t{\n\t\t\t\"product\": {\n\t\t\t\t\"_id\": \"{{productId}}\",\n\t\t\t\t\"title\": \"Product1\",\n\t\t\t\t\"image\": \"product1_image\",\n\t\t\t\t\"description\": \"Product1 description\",\n\t\t\t\t\"price\": 100\n\t\t\t},\n\t\t\t\"quantity\": 2\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fe83ffa-b30c-4592-bc9b-2b1c96b04d85",
+								"exec": [
+									"",
+									"pm.test(\"Get orders\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"productsIds\", jsonData.items.map(item => '\"' + item._id + '\"'));",
+									"    pm.expect(jsonData.items.length).to.eql(1);",
+									"    pm.expect(jsonData.number).to.eql(1);",
+									"    pm.expect(jsonData.size).to.eql(20);",
+									"    pm.expect(jsonData.total).to.eql(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bffa1c32-13c3-40ec-8f07-f5652a84b161",
+								"exec": [
+									"pm.test(\"Get Order by Id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total).to.eql(200);",
+									"    pm.expect(jsonData._id).to.eql(pm.variables.get(\"orderId\"));",
+									"    pm.expect(jsonData.orderLines[0].product._id).to.eql(pm.variables.get(\"productId\"));",
+									"    pm.expect(jsonData.orderLines[0].product.title).to.eql(\"Product1\");",
+									"    pm.expect(jsonData.orderLines[0].product.description).to.eql(\"Product1 description\");",
+									"    pm.expect(jsonData.orderLines[0].product.price).to.eql(100);",
+									"    pm.expect(jsonData.orderLines[0].quantity).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/orders/{{orderId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer delete order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55afcbc6-2d0a-4b9a-b542-c445553c82d7",
+								"exec": [
+									"pm.test(\"Delete Orders\", function () {",
+									"    pm.expect(pm.response.json().message).to.eql(\"Forbidden resource\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/orders/{{orderId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seller delete order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55afcbc6-2d0a-4b9a-b542-c445553c82d7",
+								"exec": [
+									"pm.test(\"Delete Orders\", function () {",
+									"    pm.expect(pm.response.json().message).to.eql(\"Forbidden resource\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/orders/{{orderId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin delete order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55afcbc6-2d0a-4b9a-b542-c445553c82d7",
+								"exec": [
+									"pm.test(\"Delete Orders\", function () {",
+									"    pm.expect(pm.response.json()._id).to.eql(pm.environment.get(\"orderId\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/orders/{{orderId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55afcbc6-2d0a-4b9a-b542-c445553c82d7",
+								"exec": [
+									"pm.test(\"Delete Product\", function () {",
+									"    pm.expect(pm.response.json()._id).to.eql(pm.environment.get(\"productId\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{seller_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/products/{{productId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "afterAll",
+			"item": [
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{cust_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/{{custId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{custId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

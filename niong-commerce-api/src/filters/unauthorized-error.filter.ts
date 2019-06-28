@@ -4,11 +4,8 @@ import { UnauthorizedError } from 'express-jwt';
 @Catch(UnauthorizedError)
 export class UnauthorizedErrorFilter implements ExceptionFilter {
   catch(exception: UnauthorizedError, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse();
+    const response = host.switchToHttp().getResponse();
     const status = exception.status;
-
-    console.log('exception.message: ', exception.message);
 
     response
       .status(status)

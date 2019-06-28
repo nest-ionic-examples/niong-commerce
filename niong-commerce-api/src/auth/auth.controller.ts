@@ -23,7 +23,11 @@ export class AuthController {
 
     await user.save();
 
-    return {token: sign({_id: user._id, username: user.username}, environment.JWT_SECRET_PASSWORD, {expiresIn: '1h'})};
+    return {token: sign({
+        _id: user._id,
+        username: user.username,
+        role: user.role
+      }, environment.JWT_SECRET_PASSWORD, {expiresIn: '1h'})};
   }
 
   @Get('me')
