@@ -1,11 +1,10 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { TypegooseModule } from 'nestjs-typegoose';
-import { User } from '../models/user.model';
 import { AuthMiddleware } from './auth.middleware';
+import { ModelsModule } from '../models/models.module';
 
 @Module({
-  imports: [TypegooseModule.forFeature([User])],
+  imports: [ModelsModule],
   controllers: [AuthController]
 })
 export class AuthModule implements NestModule {

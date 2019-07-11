@@ -10,7 +10,7 @@ export abstract class ReadController<T> extends FindController<T> {
   }
 
   @Get(':id')
-  findById(@Param('id') id: string) {
+  findById(@Param('id') id: string): Promise<T> {
     return FindByIdController.prototype.findById.apply(this, [id]);
   }
 

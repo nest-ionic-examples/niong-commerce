@@ -8,7 +8,7 @@ export class Order extends Typegoose {
   _id: ObjectId | string;
 
   @prop({ref: User})
-  owner: User;
+  owner: User | string;
 
   @prop({default: 0})
   total: number;

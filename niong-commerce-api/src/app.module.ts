@@ -1,27 +1,24 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { environment } from './environment';
-import { User } from './models/user.model';
 import { UsersController } from './controllers/users/users.controller';
 import { OrdersController } from './controllers/orders/orders.controller';
 import { ProductsController } from './controllers/products/products.controller';
-import { Order } from './models/order.model';
-import { Product } from './models/product.model';
-import { AuthController } from './auth/auth.controller';
-import { AuthMiddleware } from './auth/auth.middleware';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/roles.guard';
+import { ModelsModule } from './models/models.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TypegooseModule.forRoot(environment.MONGO_DB_URL),
-    TypegooseModule.forFeature([User, Order, Product]),
+    ModelsModule,
+    AuthModule
   ],
   controllers: [
     AppController,
-    AuthController,
     UsersController,
     OrdersController,
     ProductsController
@@ -31,10 +28,5 @@ import { RolesGuard } from './guards/roles.guard';
     {provide: APP_GUARD, useClass: RolesGuard}
   ],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware)
-      .forRoutes('/');
-  }
-}
+export class AppModule {}
 
