@@ -1,5 +1,5 @@
 import { ModelType } from 'typegoose';
-import { Body, Delete, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Delete, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ReadController } from './read.controller';
 import { User } from '../models/user.model';
 import { CurrentUser } from '../decorators/current-user.decorator';
@@ -9,6 +9,7 @@ export abstract class CrudController<T> extends ReadController<T> {
     super(model);
   }
 
+  @Put()
   @Post()
   save(@Body() items: T | T[] | any, @CurrentUser() currentUser?: User): Promise<T[] | T> {
     if (items instanceof Array) {
