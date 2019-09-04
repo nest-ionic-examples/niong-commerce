@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
 import { User } from '../../models/user.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { Roles } from '../../decorators/roles.decorator';
@@ -30,6 +30,12 @@ export class UsersController extends CrudController<User> {
   @Roles('ADMIN')
   create(items: User[] | any | User, currentUser?: User): Promise<User[] | User> {
     return super.create(items, currentUser);
+  }
+
+  @Put()
+  @Roles('ADMIN')
+  update(items: User[] | any | User, currentUser?: User): Promise<User[] | User> {
+    return super.update(items, currentUser);
   }
 
   @Delete(':id')
