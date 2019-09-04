@@ -28,8 +28,8 @@ export class UsersController extends CrudController<User> {
 
   @Post()
   @Roles('ADMIN')
-  save(items: User[] | any | User, currentUser?: User): Promise<User[] | User> {
-    return super.save(items, currentUser);
+  create(items: User[] | any | User, currentUser?: User): Promise<User[] | User> {
+    return super.create(items, currentUser);
   }
 
   @Delete(':id')

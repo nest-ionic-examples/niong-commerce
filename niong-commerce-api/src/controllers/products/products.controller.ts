@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Delete, HttpException, HttpStatus, Post, Put } from '@nestjs/common';
 import { Product } from '../../models/product.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { CrudController } from '../crud.controller';
@@ -14,8 +14,14 @@ export class ProductsController extends CrudController<Product> {
 
   @Post()
   @Roles('SELLER')
-  save(@Body() items, @CurrentUser() currentUser?: User) {
-    return super.save(items, currentUser);
+  create(@Body() items, @CurrentUser() currentUser?: User) {
+    return super.create(items, currentUser);
+  }
+
+  @Put()
+  @Roles('SELLER')
+  update(@Body() items, @CurrentUser() currentUser?: User) {
+    return super.create(items, currentUser);
   }
 
   async saveOne(item: any | Product, currentUser?: User): Promise<Product> {

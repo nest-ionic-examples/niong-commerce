@@ -9,14 +9,18 @@ export abstract class CrudController<T> extends ReadController<T> {
     super(model);
   }
 
-  @Put()
   @Post()
-  save(@Body() items: T | T[] | any, @CurrentUser() currentUser?: User): Promise<T[] | T> {
+  create(@Body() items: T | T[] | any, @CurrentUser() currentUser?: User): Promise<T[] | T> {
     if (items instanceof Array) {
       return Promise.all(items.map(item => this.saveOne(item, currentUser)));
     } else {
       return this.saveOne(items, currentUser);
     }
+  }
+
+  @Put()
+  update(@Body() items: T | T[] | any, @CurrentUser() currentUser?: User): Promise<T[] | T> {
+    return this.create(items, currentUser);
   }
 
   saveOne(item: T | any, currentUser?: User): Promise<T> {

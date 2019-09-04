@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <matx-back-button></matx-back-button>
+  <div class="col">{{operation | titlecase}} Product</div>
+</mat-toolbar>
+
+<section class="container pt-5">
+  <form #form="ngForm" (submit)="submit(form)">
+    <matx-input name="title" [(ngModel)]="model.title" #title="ngModel" label="Title" required>
+      <matx-errors [field]="title"></matx-errors>
+    </matx-input>
+
+    <mat-form-field class="w-100">
+      <mat-label>Description</mat-label>
+      <textarea matInput name="description" [(ngModel)]="model.description" #description="ngModel" required rows="5"></textarea>
+      <mat-error><matx-errors [field]="description"></matx-errors></mat-error>
+    </mat-form-field>
+
+    <div class="row">
+      <matx-input type="number" class="col-4" name="price" [(ngModel)]="model.price" #price="ngModel" label="Price"
+                  required min="0" step="0.01" max="99999">
+        <matx-errors [field]="price"></matx-errors>
+      </matx-input>
+    </div>
+
+    <button mat-raised-button color="primary">Save</button>
+  </form>
+</section>

@@ -1,0 +1,57 @@
+<mat-toolbar color="primary">
+  <matx-menu-button></matx-menu-button>
+  <div class="col">Products</div>
+  <button mat-icon-button><mat-icon routerLink="add">add</mat-icon></button>
+</mat-toolbar>
+
+<section>
+  <mat-table [dataSource]="dataSource$">
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns"></mat-row>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.title}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.image}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.description}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.price | currency}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef style="flex: 0 0 60px">Created</mat-header-cell>
+      <mat-cell *matCellDef="let row" style="flex: 0 0 60px">{{row.created | date}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef style="flex: 0 calc(2 * 40px)"></mat-header-cell>
+      <mat-cell *matCellDef="let row" style="flex: 0 calc(2 * 40px)">
+        <button mat-icon-button [routerLink]="'edit/' + row._id"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button (click)="deleteById(row._id)"><mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+  </mat-table>
+</section>
+
+<mat-toolbar class="p-0 h-auto">
+  <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons class="w-100"
+                 [pageIndex]="page.number - 1"
+                 [pageSize]="page.size"
+                 [length]="page.total"
+                 (page)="handlePageChange($event)"
+  ></mat-paginator>
+</mat-toolbar>

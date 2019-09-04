@@ -12,6 +12,9 @@ import { loggedIn$ } from './app.subjects';
 export class AppComponent {
   appPages = [
     {title: 'Home', url: '/home', icon: 'home'},
+    {title: 'Products', url: '/products', icon: 'business_center'},
+    {title: 'Orders', url: '/orders', icon: 'shopping_cart'},
+    {title: 'Users', url: '/users', icon: 'supervised_user_circle'},
   ];
 
   loggedIn$ = loggedIn$;

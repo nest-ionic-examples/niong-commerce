@@ -21,21 +21,6 @@ export abstract class CrudService<T extends { _id?: string }> {
     return params;
   }
 
-  protected mapPage = params => {
-    return map((page: any) => {
-      if (typeof page !== 'object') {
-        page = {data: []};
-      }
-      page.meta = page.meta || {pagination: {}};
-      return {
-        number: params.page || 0,
-        size: params.limit,
-        total: page.meta.pagination.total,
-        items: page.data
-      };
-    });
-  };
-
   findById(id: string) {
     if (!id) { return EMPTY; }
     return this.http.get<T>(this.baseUrl + '/' + id);
@@ -43,8 +28,7 @@ export abstract class CrudService<T extends { _id?: string }> {
 
   find(params?): Observable<Page<T>> {
     params = this.stringifyParams(params);
-    return this.http.get<any>(this.baseUrl, {params})
-      .pipe(this.mapPage(params));
+    return this.http.get<any>(this.baseUrl, {params});
   }
 
   findAll(params?) {
@@ -53,15 +37,17 @@ export abstract class CrudService<T extends { _id?: string }> {
 
   save(item: T | any) {
     if (item._id) {
-      const id = item._id;
-      delete item._id;
-      return this.http.put<T>(this.baseUrl + '/' + id, item);
+      return this.http.put<T>(this.baseUrl, item);
     } else {
       return this.http.post<T>(this.baseUrl, item);
     }
   }
 
-  delete(id: string) {
+  deleteById(id: string) {
     return this.http.delete(this.baseUrl + '/' + id);
+  }
+
+  delete(params) {
+    return this.http.delete(this.baseUrl, {params});
   }
 }
