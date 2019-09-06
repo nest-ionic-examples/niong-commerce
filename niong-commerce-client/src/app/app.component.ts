@@ -12,9 +12,9 @@ import { loggedIn$ } from './app.subjects';
 export class AppComponent {
   appPages = [
     {title: 'Home', url: '/home', icon: 'home'},
-    {title: 'Products', url: '/products', icon: 'business_center'},
+    {title: 'Products', url: '/products', icon: 'business_center', permissions: ['ADMIN', 'SELLER']},
     {title: 'Orders', url: '/orders', icon: 'shopping_cart'},
-    {title: 'Users', url: '/users', icon: 'supervised_user_circle'},
+    {title: 'Users', url: '/users', icon: 'supervised_user_circle', permissions: ['ADMIN']},
   ];
 
   loggedIn$ = loggedIn$;

@@ -201,6 +201,13 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-8.2.4.tgz#84fb765bfd93e0d235699f962560137934c82c4d"
   integrity sha512-8yoplzpNgZOMMluvxiyc0hwVs6WJBkHJoM8Dy3pb0UIRfYO1IDwrEEV6bbn25oORW59q7tUO3GD1yXwuJCswPQ==
 
+"@angular/material-moment-adapter@^8.1.4":
+  version "8.1.4"
+  resolved "https://registry.yarnpkg.com/@angular/material-moment-adapter/-/material-moment-adapter-8.1.4.tgz#9655e2b9732b868fceb776933322394177e3cd3c"
+  integrity sha512-dXxKLvJcRND85wMGwMS/M+X948wroIQVEkc6fzjonB7Nn2fsFNSP1kDp3mALd+OShQabYLhdLzdzGzUF8V8WkQ==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/material@^8.0.1":
   version "8.1.4"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-8.1.4.tgz#8bda747bb023af8ccce2c2d3e9e8dc25f05b3605"
@@ -976,6 +983,13 @@
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
+
+"@types/moment@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@types/moment/-/moment-2.13.0.tgz#604ebd189bc3bc34a1548689404e61a2a4aac896"
+  integrity sha1-YE69GJvDvDShVIaJQE5hoqSqyJY=
+  dependencies:
+    moment "*"
 
 "@types/node@*":
   version "12.7.4"
@@ -2578,6 +2592,11 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
+
+debounce-decorator-ts@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/debounce-decorator-ts/-/debounce-decorator-ts-1.0.4.tgz#d1f47dcf80e87b377b2e838c4529b0faf65ca7d4"
+  integrity sha512-qGx4oNIl6Ml3GI7fXhdmbfNAKGPhLWvRQkKhy6mKtFAHbOiD4nZYn2E4B6uns0pQ3e7naoSf+GDyYhBNlhShKA==
 
 debug@*, debug@^4.1.0, debug@^4.1.1:
   version "4.1.1"
@@ -5031,6 +5050,11 @@ mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@*, moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -5121,6 +5145,13 @@ ngx-permissions@^7.0.2:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-7.0.3.tgz#aefc58a14d5a71042277cbdb322560cb6e9b6535"
   integrity sha512-WwmUcO2IuE5gSgsR+wf23XkJDJzUzQ9iVNOGGfHq7tavdQK1VBY7C0oJOq7+H5vLDSfc+pEDsBwc03lXhq7J1g==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-pipes@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-2.5.6.tgz#68b91cf946b3d59582f3f49d2e27e64d8c715f86"
+  integrity sha512-tbqyZO4u+NOW5rYdOFv92pMJ7F6Sp3Jl9OjLTKbY0voqMUtCncs67t8UG3bpWFi/6fA4DD/ogvY5VfOH22sKFg==
   dependencies:
     tslib "^1.9.0"
 

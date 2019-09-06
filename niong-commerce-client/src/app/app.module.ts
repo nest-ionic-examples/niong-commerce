@@ -21,6 +21,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 export function getUserToken() {
   return sessionStorage.getItem('user_token');
@@ -38,6 +39,7 @@ export function getUserToken() {
     LayoutModule,
     HttpClientModule,
     MatxModule,
+    MatMomentDateModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getUserToken,

@@ -1,7 +1,8 @@
-import { prop, Ref, Typegoose } from 'typegoose';
+import { index, prop, Ref, Typegoose } from 'typegoose';
 import { ObjectId } from 'bson';
 import { User } from './user.model';
 
+@index({title: 'text', description: 'text'})
 export class Product extends Typegoose {
   _id: ObjectId | string;
 

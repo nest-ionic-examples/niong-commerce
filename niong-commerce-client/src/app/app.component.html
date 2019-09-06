@@ -7,7 +7,7 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <ng-template ngFor let-page [ngForOf]="appPages">
-        <a mat-list-item [routerLink]="page.url" routerLinkActive="active"
+        <a mat-list-item *ngxPermissionsOnly="page.permissions" [routerLink]="page.url" routerLinkActive="active"
            (click)="sideNavCtrl.opened = false">
           <mat-icon mat-list-icon>{{page.icon}}</mat-icon>
           <h4 mat-line>{{page.title}}</h4>
