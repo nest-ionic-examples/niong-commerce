@@ -12,7 +12,7 @@ import { ParseOptionalIntPipe } from '../../pipes/parse-optional-int.pipe';
 @Controller('orders')
 export class OrdersController extends CrudController<Order> {
   constructor(@InjectModel(Order) model, @InjectModel(Product) private productModel: ModelType<Product>) {
-    super(model);
+    super(model, Order);
   }
 
   @Get(':id')

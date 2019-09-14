@@ -25,12 +25,9 @@
       <matx-errors [field]="role"></matx-errors>
     </matx-select>
 
-    <div class="row">
-      <matx-input type="number" class="col-4" name="price" [(ngModel)]="model.price" #price="ngModel" label="Price"
-                  required min="0" step="0.01" max="99999">
-        <matx-errors [field]="price"></matx-errors>
-      </matx-input>
-    </div>
+    <matx-gmap-autocomplete label="Address" name="address" [(ngModel)]="model.address" #address="ngModel">
+      <matx-errors [field]="address"></matx-errors>
+    </matx-gmap-autocomplete>
 
     <button mat-raised-button color="primary">Save</button>
   </form>

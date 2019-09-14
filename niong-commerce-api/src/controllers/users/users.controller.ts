@@ -9,7 +9,7 @@ import { CrudController } from '../crud.controller';
 @Controller('users')
 export class UsersController extends CrudController<User> {
   constructor(@InjectModel(User) model) {
-    super(model);
+    super(model, User);
   }
 
   @Get()

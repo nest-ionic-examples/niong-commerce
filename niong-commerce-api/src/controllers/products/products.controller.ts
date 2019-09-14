@@ -14,7 +14,7 @@ import { ParseNumberPipe } from '../../pipes/parse-number.pipe';
 @Controller('products')
 export class ProductsController extends CrudController<Product> {
   constructor(@InjectModel(Product) model) {
-    super(model);
+    super(model, Product);
   }
 
   @Get()

@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@agm/core@^1.0.0-beta.7":
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@agm/core/-/core-1.0.0-beta.7.tgz#5ceb024a7ffaa6a1648f010392684c06905ef656"
+  integrity sha512-NXJqB2wCahWGSqvQazLHbVrg3Dhg5zTdhG9yP7EVVGfIft5lbY83KLVpbYFeVI/l+ggeJWAC9nVUr7CeDS96uQ==
+
 "@angular-devkit/architect@0.803.4", "@angular-devkit/architect@~0.803.2":
   version "0.803.4"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.803.4.tgz#d1f058123ca33e77b674e9c1080a0c8be7aa670c"
@@ -1279,9 +1284,9 @@ amdefine@>=0.0.4:
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
 angular-material-extended@^0.7.0:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/angular-material-extended/-/angular-material-extended-0.7.7.tgz#52cb7136769d803b820e96f8fb071b463eccfe73"
-  integrity sha512-Peok/aff9x+1nH1gnD2CFLWybK4MVZ72f9VlkIjkFt+xYXxJlTbAojSgYdQpCYA5K+eendR/yv0nHZLyYb9vPQ==
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/angular-material-extended/-/angular-material-extended-0.7.8.tgz#79b4e3cfcbf6357d635786f583e1eb25abffa2f7"
+  integrity sha512-Bzte63dVLhSWQqdiTM1IENwU356iHoblZV7hsbeSa37I0vMXZXHf8NJeMizYIz5xyuJq0lPujZQ2OQuFQilkwQ==
   dependencies:
     tslib "^1.9.0"
 
@@ -2876,9 +2881,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.191, electron-to-chromium@^1.3.247:
-  version "1.3.257"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.257.tgz#35da0ad5833b27184c8298804c498a4d2f4ed27d"
-  integrity sha512-EcKVmUeHCZelPA0wnIaSmpAN8karKhKBwFb+xLUjSVZ8sGRE1l3fst1zQZ7KJUkyJ7H5edPd4RP94pzC9sG00A==
+  version "1.3.258"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.258.tgz#829b03be37424099b91aefb6815e8801bf30b509"
+  integrity sha512-rkPYrgFU7k/8ngjHYvzOZ44OQQ1GeIRIQnhGv00RkSlQXEnJKsGonQppbEEWHuuxZegpMao+WZmYraWQJQJMMg==
 
 elliptic@^6.0.0:
   version "6.5.1"

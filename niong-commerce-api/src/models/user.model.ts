@@ -42,13 +42,12 @@ export class User extends Typegoose {
 
   @prop()
   address: {
-    addr1: string,
-    addr2: string,
-    city: string,
-    state: string,
-    country: string,
-    zip: number,
-  };
+    address?: string,
+    coordinates?: {
+      latitude: number,
+      longitude: number,
+    }
+  } = null;
 
   @prop({default: Date.now})
   created: Date;

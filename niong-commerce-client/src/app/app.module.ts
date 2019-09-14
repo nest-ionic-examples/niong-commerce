@@ -10,7 +10,8 @@ import {
   MatDialogModule,
   MatIconModule,
   MatListModule,
-  MatSidenavModule, MatSnackBar,
+  MatSidenavModule,
+  MatSnackBar,
   MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
@@ -22,6 +23,8 @@ import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { AgmCoreModule } from "@agm/core";
+import { MatxGmapModule } from "angular-material-extended/matx-gmap";
 
 export function getUserToken() {
   return sessionStorage.getItem('user_token');
@@ -29,9 +32,6 @@ export function getUserToken() {
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [
-    MatxPromptComponent
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,7 +39,12 @@ export function getUserToken() {
     LayoutModule,
     HttpClientModule,
     MatxModule,
+    MatxGmapModule,
     MatMomentDateModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.gmap_key,
+      libraries: ['places']
+    }),
     JwtModule.forRoot({
       config: {
         tokenGetter: getUserToken,

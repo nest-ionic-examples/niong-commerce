@@ -3,9 +3,11 @@ import { Body, Delete, HttpException, HttpStatus, Param, Post, Put } from '@nest
 import { ReadController } from './read.controller';
 import { User } from '../models/user.model';
 import { CurrentUser } from '../decorators/current-user.decorator';
+import { plainToClass } from "class-transformer";
+import { ClassType } from "class-transformer/ClassTransformer";
 
 export abstract class CrudController<T> extends ReadController<T> {
-  protected constructor(protected model: ModelType<T>) {
+  protected constructor(protected model: ModelType<T>, protected type: ClassType<T>) {
     super(model);
   }
 
@@ -24,6 +26,7 @@ export abstract class CrudController<T> extends ReadController<T> {
   }
 
   saveOne(item: T | any, currentUser?: User): Promise<T> {
+    item = plainToClass(this.type, item);
     if (item._id) {
       return this.model.findByIdAndUpdate(item._id, item, {new: true}).exec();
     } else {
