@@ -18,7 +18,6 @@ import { debounceFn } from 'debounce-decorator-ts';
 })
 export class ProductsPage implements OnInit {
 
-
   columns = ['title', 'image', 'description', 'price', 'created', 'actions'];
 
   dataSource$: Observable<Product[]>;

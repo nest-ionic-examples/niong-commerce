@@ -1,4 +1,62 @@
 <mat-toolbar color="primary">
   <matx-menu-button></matx-menu-button>
-  <div class="col">Users</div>
+  <div class="col">
+    <matx-input placeholder="Users" floatLabel="never" class="toolbar-search-box" [ngModel]="this.params.search"
+                (ngModelChange)="search($event)">
+      <button mat-icon-button matPrefix><mat-icon>search</mat-icon></button>
+    </matx-input></div>
+  <button mat-icon-button><mat-icon routerLink="add">add</mat-icon></button>
+  <button mat-icon-button (click)="filter()"><mat-icon>filter_list</mat-icon></button>
+  <button mat-icon-button *ngIf="(params | keys).length" (click)="navigate({})"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+
+<section>
+  <mat-table [dataSource]="dataSource$">
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns"></mat-row>
+
+    <ng-container matColumnDef="username">
+      <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.username}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.firstName}} {{row.lastName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.email}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.role}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef style="flex: 0 0 60px">Created</mat-header-cell>
+      <mat-cell *matCellDef="let row" style="flex: 0 0 60px">{{row.created | date}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef style="flex: 0 calc(2 * 40px)"></mat-header-cell>
+      <mat-cell *matCellDef="let row" style="flex: 0 calc(2 * 40px)">
+        <button mat-icon-button [routerLink]="'edit/' + row._id"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button (click)="deleteById(row._id)"><mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+  </mat-table>
+</section>
+
+<mat-toolbar class="p-0 h-auto">
+  <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons class="w-100"
+                 [pageIndex]="page.number - 1"
+                 [pageSize]="page.size"
+                 [length]="page.total"
+                 (page)="handlePageChange($event)"
+  ></mat-paginator>
 </mat-toolbar>

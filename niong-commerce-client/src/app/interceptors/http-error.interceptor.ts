@@ -3,7 +3,7 @@ import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { currentUser$ } from '../app.subjects';
+import { currentUser$ } from '../services/auth.subjects';
 
 export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(private snackBar: MatSnackBar, private router: Router) {}

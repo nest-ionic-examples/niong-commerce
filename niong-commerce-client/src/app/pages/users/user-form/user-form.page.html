@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <matx-back-button></matx-back-button>
+  <div class="col">{{operation | titlecase}} User</div>
+</mat-toolbar>
+
+<section class="container pt-5">
+  <form #form="ngForm" (submit)="submit(form)">
+    <matx-input name="username" [(ngModel)]="model.username" #username="ngModel" label="Username" [disabled]="operation === 'edit'">
+      <matx-errors [field]="username"></matx-errors>
+    </matx-input>
+
+    <matx-input name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" label="First Name">
+      <matx-errors [field]="firstName"></matx-errors>
+    </matx-input>
+
+    <matx-input name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" label="Last Name">
+      <matx-errors [field]="lastName"></matx-errors>
+    </matx-input>
+
+    <matx-input name="email" [(ngModel)]="model.email" #email="ngModel" label="Email" email="normal">
+      <matx-errors [field]="email" [errorMessages]="{normalEmailRule: 'This field should have email format (user@service.com)'}"></matx-errors>
+    </matx-input>
+
+    <matx-select name="role" [(ngModel)]="model.role" #role="ngModel" label="Role" [options]="['ADMIN', 'MANAGER', 'SELLER', 'CUSTOMER']" required>
+      <matx-errors [field]="role"></matx-errors>
+    </matx-select>
+
+    <div class="row">
+      <matx-input type="number" class="col-4" name="price" [(ngModel)]="model.price" #price="ngModel" label="Price"
+                  required min="0" step="0.01" max="99999">
+        <matx-errors [field]="price"></matx-errors>
+      </matx-input>
+    </div>
+
+    <button mat-raised-button color="primary">Save</button>
+  </form>
+</section>

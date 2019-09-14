@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatxSidenavMenuController } from 'angular-material-extended';
 import { AuthService } from './services/auth.service';
-import { loggedIn$ } from './app.subjects';
+import { loggedIn$ } from './services/auth.subjects';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ export class AppComponent {
   appPages = [
     {title: 'Home', url: '/home', icon: 'home'},
     {title: 'Products', url: '/products', icon: 'business_center', permissions: ['ADMIN', 'SELLER']},
-    {title: 'Orders', url: '/orders', icon: 'shopping_cart'},
+    {title: 'Orders', url: '/orders', icon: 'shopping_cart', permissions: ['ADMIN', 'SELLER', 'CUSTOMER']},
     {title: 'Users', url: '/users', icon: 'supervised_user_circle', permissions: ['ADMIN']},
   ];
 

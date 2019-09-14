@@ -5,7 +5,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./docker-compose-files:/docker-entrypoint-initdb.d
+      - ./docker-compose-files/mongo:/docker-entrypoint-initdb.d
     environment:
       MONGO_INITDB_DATABASE: niong-commerce
   serve:

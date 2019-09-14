@@ -1,8 +1,9 @@
+require('dotenv').config({path: `environments/${process.env.NODE_ENV || 'local'}.env`});
+
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { environment } from './environment';
 import { UsersController } from './controllers/users/users.controller';
 import { OrdersController } from './controllers/orders/orders.controller';
 import { ProductsController } from './controllers/products/products.controller';
@@ -13,7 +14,7 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    TypegooseModule.forRoot(environment.MONGO_DB_URL),
+    TypegooseModule.forRoot(process.env.MONGO_DB_URL),
     ModelsModule,
     AuthModule
   ],

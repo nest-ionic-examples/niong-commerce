@@ -5,7 +5,6 @@ import { ModelType } from 'typegoose';
 import { sign } from 'jsonwebtoken';
 import { compare, hash } from 'bcrypt';
 import { CurrentUser } from '../decorators/current-user.decorator';
-import { environment } from '../environment';
 
 @Controller('')
 export class AuthController {
@@ -27,7 +26,7 @@ export class AuthController {
         _id: user._id,
         username: user.username,
         role: user.role
-      }, environment.JWT_SECRET_PASSWORD, {expiresIn: '1h'})};
+      }, process.env.JWT_SECRET_PASSWORD, {expiresIn: '1h'})};
   }
 
   @Get('me')

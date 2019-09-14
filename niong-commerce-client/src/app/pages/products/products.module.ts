@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ProductsPage } from './products.page';
 import {
@@ -16,8 +16,11 @@ import { NgObjectPipesModule } from 'ngx-pipes';
 
 const routes: Routes = [
   {path: '', component: ProductsPage},
-  {path: 'add', loadChildren: './product-form/product-form.module#ProductFormPageModule'},
-  {path: 'edit/:id', loadChildren: './product-form/product-form.module#ProductFormPageModule'},
+  {path: 'add', loadChildren: () => import('./product-form/product-form.module').then(m => m.ProductFormPageModule)},
+  {
+    path: 'edit/:id',
+    loadChildren: () => import('./product-form/product-form.module').then(m => m.ProductFormPageModule)
+  },
 
 ];
 

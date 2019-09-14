@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { MatxPromptController } from 'angular-material-extended';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { currentUser$ } from '../app.subjects';
+import { currentUser$ } from './auth.subjects';
 import { User } from '../models/user';
 import { tap } from 'rxjs/operators';
 
