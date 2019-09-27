@@ -4,7 +4,7 @@ import { User } from '../models/user.model';
 import { ModelType } from 'typegoose';
 import { sign } from 'jsonwebtoken';
 import { compare, hash } from 'bcrypt';
-import { CurrentUser } from '../decorators/current-user.decorator';
+import { CurrentUser } from './current-user.decorator';
 
 @Controller('')
 export class AuthController {

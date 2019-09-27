@@ -1,17 +1,21 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Query } from '@nestjs/common';
 import { Product } from '../../models/product.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { CrudController } from '../crud.controller';
-import { Roles } from '../../decorators/roles.decorator';
+import { Roles } from '../../auth/roles.decorator';
 import { User } from '../../models/user.model';
-import { CurrentUser } from '../../decorators/current-user.decorator';
 import { Page } from '../find.controller';
 import { ParseOptionalIntPipe } from '../../pipes/parse-optional-int.pipe';
 import { ParseStartOfDayPipe } from '../../pipes/parse-start-of-day.pipe';
 import { ParseEndOfDayPipe } from '../../pipes/parse-end-of-day.pipe';
 import { ParseNumberPipe } from '../../pipes/parse-number.pipe';
+import { RolesMap } from '../../auth/roles-map.decorator';
 
 @Controller('products')
+@RolesMap({
+  POST: 'SELLER',
+  PUT: 'SELLER',
+})
 export class ProductsController extends CrudController<Product> {
   constructor(@InjectModel(Product) model) {
     super(model, Product);
@@ -50,34 +54,16 @@ export class ProductsController extends CrudController<Product> {
     // }
   }
 
-  @Post()
-  @Roles('SELLER')
-  create(@Body() items, @CurrentUser() currentUser?: User) {
-    return super.create(items, currentUser);
-  }
-
-  @Put()
-  @Roles('SELLER')
-  update(@Body() items, @CurrentUser() currentUser?: User) {
-    return super.create(items, currentUser);
-  }
-
   async saveOne(item: any | Product, currentUser?: User): Promise<Product> {
     if (currentUser.role === 'SELLER') {
       const prevItem = await this.model.findById(item._id).populate('owner');
       if (item._id && (currentUser._id !== prevItem.owner._id.toString())) {
-        throw new HttpException('You do not have enough permissions to do this operation', HttpStatus.FORBIDDEN)
+        throw new HttpException('Your Permissions are not enough to complete this operation', HttpStatus.FORBIDDEN)
       } else {
         item.owner = currentUser;
       }
     }
     return super.saveOne(item, currentUser);
-  }
-
-  @Delete(':id')
-  @Roles('SELLER')
-  removeById(id: string) {
-    return super.removeById(id);
   }
 
   @Delete()

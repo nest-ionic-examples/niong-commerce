@@ -2,7 +2,7 @@ import { ModelType } from 'typegoose';
 import { Body, Delete, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ReadController } from './read.controller';
 import { User } from '../models/user.model';
-import { CurrentUser } from '../decorators/current-user.decorator';
+import { CurrentUser } from '../auth/current-user.decorator';
 import { plainToClass } from "class-transformer";
 import { ClassType } from "class-transformer/ClassTransformer";
 

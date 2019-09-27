@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
 import { User } from '../../models/user.model';
 import { InjectModel } from 'nestjs-typegoose';
-import { Roles } from '../../decorators/roles.decorator';
+import { Roles } from '../../auth/roles.decorator';
 import { Page } from '../find.controller';
 import { ParseOptionalIntPipe } from '../../pipes/parse-optional-int.pipe';
 import { CrudController } from '../crud.controller';

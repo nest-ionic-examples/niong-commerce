@@ -3,10 +3,10 @@ import { Order } from '../../models/order.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/user.model';
 import { CrudController } from '../crud.controller';
-import { Roles } from '../../decorators/roles.decorator';
+import { Roles } from '../../auth/roles.decorator';
 import { Product } from '../../models/product.model';
 import { ModelType } from 'typegoose';
-import { CurrentUser } from '../../decorators/current-user.decorator';
+import { CurrentUser } from '../../auth/current-user.decorator';
 import { ParseOptionalIntPipe } from '../../pipes/parse-optional-int.pipe';
 
 @Controller('orders')
@@ -19,7 +19,7 @@ export class OrdersController extends CrudController<Order> {
   async findById_(@Param('id') id: string, @CurrentUser() currentUser: User) {
     const order = await super.findById(id);
     if (['ADMIN', 'SELLER'].includes(currentUser.role)
-      || currentUser.role === 'USER' && order.owner === currentUser._id) {
+      || currentUser.role === 'CUSTOMER' && order.owner && order.owner.toString() === currentUser._id) {
       return order;
     } else {
       throw new HttpException('Not Allowed', HttpStatus.FORBIDDEN)
@@ -42,7 +42,9 @@ export class OrdersController extends CrudController<Order> {
     if (item._id && 'ADMIN' !== currentUser.role || 'SELLER' === currentUser.role) {
       throw new HttpException('Your Permissions are not enough to complete this operation', HttpStatus.FORBIDDEN);
     } else {
-      item.owner = currentUser;
+      if (!item._id || item.owner === currentUser){
+        item.owner = currentUser;
+      }
 
       for (let orderLine of item.orderLines) {
         if (typeof orderLine.product !== 'string') {

@@ -7,8 +7,6 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { UsersController } from './controllers/users/users.controller';
 import { OrdersController } from './controllers/orders/orders.controller';
 import { ProductsController } from './controllers/products/products.controller';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './guards/roles.guard';
 import { ModelsModule } from './models/models.module';
 import { AuthModule } from './auth/auth.module';
 
@@ -26,7 +24,6 @@ import { AuthModule } from './auth/auth.module';
   ],
   providers: [
     AppService,
-    {provide: APP_GUARD, useClass: RolesGuard}
   ],
 })
 export class AppModule {}
