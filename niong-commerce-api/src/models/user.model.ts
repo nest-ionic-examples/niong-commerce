@@ -1,8 +1,8 @@
-import { instanceMethod, InstanceType, prop, Typegoose } from 'typegoose';
+import { DocumentType, prop } from '@typegoose/typegoose';
 import { ObjectId } from 'bson';
 import isEmail = require('validator/lib/isEmail');
 
-export class User extends Typegoose {
+export class User {
   _id: ObjectId | string;
 
   @prop({
@@ -58,12 +58,7 @@ export class User extends Typegoose {
   @prop({default: () => false})
   deleted: boolean;
 
-  constructor() {
-    super();
-  }
-
-  @instanceMethod
-  toJSON(this: InstanceType<User>) {
+  toJSON(this: DocumentType<User>) {
     const obj = this.toObject();
     delete obj.password;
     return obj;

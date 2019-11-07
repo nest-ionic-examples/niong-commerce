@@ -1,6 +1,8 @@
 import {
   AndExprContext,
-  BetweenExprContext, ContainsExprContext, EndsWithExprContext,
+  BetweenExprContext,
+  ContainsExprContext,
+  EndsWithExprContext,
   EqualExprContext,
   FilterParser,
   GetExprContext,
@@ -8,7 +10,9 @@ import {
   LetExprContext,
   LtExprContext,
   NeExprContext,
-  OrExprContext, ParenthesisExprContext, StartsWithExprContext,
+  OrExprContext,
+  ParenthesisExprContext,
+  StartsWithExprContext,
   ValueContext
 } from './FilterParser';
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree';
@@ -71,9 +75,11 @@ class FilterVisitorImpl extends AbstractParseTreeVisitor<any> implements FilterV
       ? (expr0 instanceof OrExprContext)
         ? [...visitedExpr0, visitedExpr1]
         : [visitedExpr0, visitedExpr1]
-      : {$or: (expr0 instanceof OrExprContext)
+      : {
+        $or: (expr0 instanceof OrExprContext)
           ? [...visitedExpr0, visitedExpr1]
-          : [visitedExpr0, visitedExpr1]};
+          : [visitedExpr0, visitedExpr1]
+      };
   }
 
   visitAndExpr(ctx: AndExprContext) {
@@ -85,9 +91,11 @@ class FilterVisitorImpl extends AbstractParseTreeVisitor<any> implements FilterV
       ? (expr0 instanceof AndExprContext)
         ? [...visitedExpr0, visitedExpr1]
         : [visitedExpr0, visitedExpr1]
-      : {$and: (expr0 instanceof AndExprContext)
+      : {
+        $and: (expr0 instanceof AndExprContext)
           ? [...visitedExpr0, visitedExpr1]
-          : [visitedExpr0, visitedExpr1]};
+          : [visitedExpr0, visitedExpr1]
+      };
   }
 
   visitParenthesisExpr(ctx: ParenthesisExprContext) {

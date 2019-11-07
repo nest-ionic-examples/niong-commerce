@@ -1,17 +1,25 @@
 version: '3.0'
 services:
   mongo:
-    image: mongo
+    image: mongo:4.2
     ports:
       - 27017:27017
     volumes:
       - ./docker-compose-files/mongo:/docker-entrypoint-initdb.d
     environment:
       MONGO_INITDB_DATABASE: niong-commerce
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      discovery.type: single-node
   serve:
-    image: node
+    image: node:12.13.0
     depends_on:
       - mongo
+      - elasticsearch
     ports:
       - 3000:3000
     volumes:

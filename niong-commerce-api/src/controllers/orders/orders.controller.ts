@@ -1,17 +1,26 @@
-import { Controller, Delete, Get, HttpException, HttpStatus, Param, Query } from '@nestjs/common';
+import {
+  Controller,
+  Delete, ForbiddenException,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Query,
+  UnprocessableEntityException
+} from '@nestjs/common';
 import { Order } from '../../models/order.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/user.model';
 import { CrudController } from '../crud.controller';
 import { Roles } from '../../auth/roles.decorator';
 import { Product } from '../../models/product.model';
-import { ModelType } from 'typegoose';
+import { ReturnModelType } from '@typegoose/typegoose';
 import { CurrentUser } from '../../auth/current-user.decorator';
 import { ParseOptionalIntPipe } from '../../pipes/parse-optional-int.pipe';
 
 @Controller('orders')
 export class OrdersController extends CrudController<Order> {
-  constructor(@InjectModel(Order) model, @InjectModel(Product) private productModel: ModelType<Product>) {
+  constructor(@InjectModel(Order) model, @InjectModel(Product) private productModel: ReturnModelType<typeof Product>) {
     super(model, Order);
   }
 
@@ -40,22 +49,26 @@ export class OrdersController extends CrudController<Order> {
 
   async saveOne(item: Order, currentUser: User) {
     if (item._id && 'ADMIN' !== currentUser.role || 'SELLER' === currentUser.role) {
-      throw new HttpException('Your Permissions are not enough to complete this operation', HttpStatus.FORBIDDEN);
+      throw new ForbiddenException('Your Permissions are not enough to complete this operation');
     } else {
-      if (!item._id || item.owner === currentUser){
+      if (!item._id || item.owner === currentUser) {
         item.owner = currentUser;
+      }
+
+      if (!item.orderLines || !item.orderLines.length) {
+        throw new UnprocessableEntityException('Order should contains products');
       }
 
       for (let orderLine of item.orderLines) {
         if (typeof orderLine.product !== 'string') {
-          throw new HttpException('Order contains invalid product', HttpStatus.UNPROCESSABLE_ENTITY);
+          throw new UnprocessableEntityException('Order contains invalid product');
         }
         if (typeof orderLine.quantity !== 'number') {
-          throw new HttpException('Order contains invalid quantity', HttpStatus.UNPROCESSABLE_ENTITY);
+          throw new UnprocessableEntityException('Order contains invalid quantity');
         }
-        const product = await this.productModel.findById(orderLine.product);
+        const product = (await this.productModel.findById(orderLine.product));
         if (!product) {
-          throw new HttpException('Order contains invalid product', HttpStatus.UNPROCESSABLE_ENTITY);
+          throw new UnprocessableEntityException('Order contains invalid product');
         }
         orderLine.product = product;
       }

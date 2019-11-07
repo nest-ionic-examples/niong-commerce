@@ -1,9 +1,10 @@
-import { index, prop, Ref, Typegoose } from 'typegoose';
+import { arrayProp, index, prop, Ref } from '@typegoose/typegoose';
 import { ObjectId } from 'bson';
 import { User } from './user.model';
+import { Category } from './category.model';
 
 @index({title: 'text', description: 'text'})
-export class Product extends Typegoose {
+export class Product {
   _id: ObjectId | string;
 
   @prop({ref: User})
@@ -23,4 +24,7 @@ export class Product extends Typegoose {
 
   @prop({default: Date.now})
   created: Date;
+
+  @arrayProp({ref: Category})
+  categories: Ref<Category[]> | Category[] | string[];
 }

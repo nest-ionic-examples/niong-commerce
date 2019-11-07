@@ -1,9 +1,9 @@
-import { ModelType } from 'typegoose';
+import { ReturnModelType } from '@typegoose/typegoose';
 import { Get, Param } from '@nestjs/common';
 
 export class FindByIdController<T> {
 
-  protected constructor(protected model: ModelType<T>) {}
+  protected constructor(protected model: ReturnModelType<any>) {}
 
   @Get(':id')
   findById(@Param('id') id: string): Promise<T> {
