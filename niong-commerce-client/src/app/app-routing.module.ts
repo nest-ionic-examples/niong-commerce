@@ -26,6 +26,10 @@ const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {permissions: {only: ['ADMIN', 'SELLER'], redirectTo: 'home'}}
       },
+      {
+        path: 'categories',
+        loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesPageModule)
+      },
     ]},
 ];
 

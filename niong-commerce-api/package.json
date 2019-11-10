@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage --forceExit",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json --forceExit",
-    "dc:start:dbs": "docker-compose up mongo elasticsearch",
+    "dc:start:dbs": "docker-compose up mongo",
     "dc:down": "docker-compose down -v --remove-orphans",
     "dc:restart:dbs": "npm run dc:down && npm run dc:start:dbs",
     "docker:stop:all": "docker stop $(docker ps -q)"

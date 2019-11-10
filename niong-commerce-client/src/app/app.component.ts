@@ -15,6 +15,7 @@ export class AppComponent {
     {title: 'Products', url: '/products', icon: 'business_center', permissions: ['ADMIN', 'SELLER']},
     {title: 'Orders', url: '/orders', icon: 'shopping_cart', permissions: ['ADMIN', 'SELLER', 'CUSTOMER']},
     {title: 'Users', url: '/users', icon: 'supervised_user_circle', permissions: ['ADMIN']},
+    {title: 'Categories', url: '/categories', icon: 'category', permissions: ['ADMIN']},
   ];
 
   loggedIn$ = loggedIn$;
