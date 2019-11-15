@@ -38,7 +38,7 @@ export class ProductsPage implements OnInit {
       delete this.params._refresh;
       const page = Number(params.page);
       const limit = Number(params.limit);
-      const _params = Object.assign({}, params, {
+      const _params = Object.assign({}, this.params, {
         page: page && page > 0 ? page : 1,
         limit: limit && limit > 0 ? limit : 20
       });

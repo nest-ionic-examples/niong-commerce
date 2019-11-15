@@ -25,6 +25,7 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AgmCoreModule } from "@agm/core";
 import { MatxGmapModule } from "angular-material-extended/matx-gmap";
+import { SocketIoModule } from 'ngx-socket-io';
 
 export function getUserToken() {
   return sessionStorage.getItem('user_token');
@@ -52,6 +53,12 @@ export function getUserToken() {
         blacklistedRoutes: ['/login', '/sign-up']
       }
     }),
+    SocketIoModule.forRoot({
+      url: environment.baseUrl,
+      options: {
+        autoConnect: false
+      }
+    }),
     NgxPermissionsModule.forRoot(),
     MatToolbarModule,
     MatButtonModule,
@@ -60,6 +67,9 @@ export function getUserToken() {
     MatListModule,
     MatSnackBarModule,
     MatDialogModule,
+  ],
+  entryComponents: [
+    MatxPromptComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true, deps: [MatSnackBar, Router]}

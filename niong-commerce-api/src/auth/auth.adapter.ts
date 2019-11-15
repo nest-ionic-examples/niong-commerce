@@ -9,8 +9,10 @@ export interface CustomSocket extends Socket { // <1>
 
 export class AuthAdapter extends IoAdapter {
   createIOServer(port: number, options?: any): any {
+    console.log('createIoServer');
     const server = super.createIOServer(port, options);
     server.use((socket: CustomSocket, next) => { // <2>
+      console.log('socket.handshake.query: ', socket.handshake.query);
       if (socket.handshake.query && socket.handshake.query.token) {
         verify(socket.handshake.query.token, process.env.JWT_SECRET_PASSWORD, (err, decoded) => { // <3>
           if (err) {

@@ -37,6 +37,7 @@
     "moment": "^2.24.0",
     "ngx-permissions": "^7.0.2",
     "ngx-pipes": "^2.5.6",
+    "ngx-socket-io": "^3.0.1",
     "ngx-validators": "^5.0.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",

@@ -9,6 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { currentUser$ } from './auth.subjects';
 import { User } from '../models/user';
 import { tap } from 'rxjs/operators';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class AuthService {
               private permissionsSvc: NgxPermissionsService,
               private promptCtrl: MatxPromptController,
               jwtSvc: JwtHelperService,
-              route: ActivatedRoute) {
+              route: ActivatedRoute,
+              socket: Socket) {
     route.queryParams.subscribe(queryParams => this.redirectUrl = queryParams.redirectUrl);
 
     if (jwtSvc.tokenGetter() && !jwtSvc.isTokenExpired()) {
@@ -33,9 +35,13 @@ export class AuthService {
     }
 
     currentUser$.subscribe(currentUser => {
-      if (!currentUser) {
+      if (currentUser) {
+        socket.ioSocket.io.opts.query = {token: jwtSvc.tokenGetter()};
+        // socket.connect();
+      } else {
         sessionStorage.removeItem('user_token');
         permissionsSvc.flushPermissions();
+        socket.disconnect();
       }
     });
   }
