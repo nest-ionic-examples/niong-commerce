@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <matx-back-button></matx-back-button>
+  <div class="col">{{operation | titlecase}} Category</div>
+</mat-toolbar>
+
+<section class="container">
+  <form #f="ngForm" (ngSubmit)="save(f)">
+    <matx-input name="name" [(ngModel)]="model.name" #name="ngModel" label="Name" required
+                maxlength="20"></matx-input>
+
+    <matx-textarea name="description" #description="ngModel" [(ngModel)]="model.description" label="Description"
+                   required maxlength="200"></matx-textarea>
+    <button mat-raised-button color="primary">Save</button>
+  </form>
+</section>

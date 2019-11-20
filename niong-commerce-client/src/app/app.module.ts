@@ -17,7 +17,7 @@ import {
 } from '@angular/material';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MatxModule, MatxPromptComponent } from 'angular-material-extended';
+import { MatxModule } from 'angular-material-extended';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
@@ -25,6 +25,13 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AgmCoreModule } from "@agm/core";
 import { MatxGmapModule } from "angular-material-extended/matx-gmap";
+import { DefaultDataServiceConfig, EntityDataModule, EntityDataService } from '@ngrx/data';
+import { entityConfig } from './entity-metadata';
+import { StoreModule } from '@ngrx/store';
+import { metaReducers, reducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CategoriesDataService } from './services/categories-data.service';
 
 export function getUserToken() {
   return sessionStorage.getItem('user_token');
@@ -52,6 +59,16 @@ export function getUserToken() {
         blacklistedRoutes: ['/login', '/sign-up']
       }
     }),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    EffectsModule.forRoot([]),
+    EntityDataModule.forRoot(entityConfig),
     NgxPermissionsModule.forRoot(),
     MatToolbarModule,
     MatButtonModule,
@@ -62,8 +79,18 @@ export function getUserToken() {
     MatDialogModule,
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true, deps: [MatSnackBar, Router]}
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true, deps: [MatSnackBar, Router]},
+    {
+      provide: DefaultDataServiceConfig, useValue: {
+        root: environment.api,
+        timeout: 3000,
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(eds: EntityDataService, categoriesDSvc: CategoriesDataService) {
+    eds.registerService('Category', categoriesDSvc);
+  }
+}

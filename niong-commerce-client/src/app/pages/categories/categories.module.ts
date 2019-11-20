@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { CategoriesPage } from './categories.page';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -13,7 +13,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgObjectPipesModule } from 'ngx-pipes';
 
 const routes: Routes = [
-  {path: '', component: CategoriesPage}
+  {path: '', component: CategoriesPage},
+  {path: 'add', loadChildren: () => import('./category-form/category-form.module').then(m => m.CategoryFormPageModule)},
+  {
+    path: 'edit/:id',
+    loadChildren: () => import('./category-form/category-form.module').then(m => m.CategoryFormPageModule)
+  },
 ];
 
 @NgModule({
