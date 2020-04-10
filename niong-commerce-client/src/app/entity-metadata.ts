@@ -4,9 +4,15 @@ const entityMetadata: EntityMetadataMap = {
   Category: {
     selectId: m => m._id
   },
-  Order: {},
-  Product: {},
-  User: {},
+  Order: {
+    selectId: m => m._id
+  },
+  Product: {
+    selectId: m => m._id
+  },
+  User: {
+    selectId: m => m._id
+  },
 };
 
 const pluralNames = {

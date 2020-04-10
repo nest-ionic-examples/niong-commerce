@@ -16,7 +16,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatxModule } from 'angular-material-extended';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
@@ -25,13 +25,13 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AgmCoreModule } from "@agm/core";
 import { MatxGmapModule } from "angular-material-extended/matx-gmap";
-import { DefaultDataServiceConfig, EntityDataModule, EntityDataService } from '@ngrx/data';
+import { DefaultDataServiceConfig, DefaultDataServiceFactory, EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { CategoriesDataService } from './services/categories-data.service';
+import { CustomDefaultDataServiceFactory } from './services/custom-default-data.service';
 
 export function getUserToken() {
   return sessionStorage.getItem('user_token');
@@ -80,17 +80,13 @@ export function getUserToken() {
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true, deps: [MatSnackBar, Router]},
-    {
-      provide: DefaultDataServiceConfig, useValue: {
-        root: environment.api,
-        timeout: 3000,
-      }
-    }
+    {provide: DefaultDataServiceConfig, useValue: {root: environment.api, timeout: 3000}},
+    {provide: DefaultDataServiceFactory, useClass: CustomDefaultDataServiceFactory, deps: [HttpClient, HttpUrlGenerator, DefaultDataServiceConfig]},
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(eds: EntityDataService, categoriesDSvc: CategoriesDataService) {
-    eds.registerService('Category', categoriesDSvc);
-  }
+  // constructor(eds: EntityDataService, categoriesDSvc: CategoriesDataService) {
+  //   eds.registerService('Category', categoriesDSvc);
+  // }
 }
