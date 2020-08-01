@@ -1,4 +1,4 @@
-import { ElasticsearchModule } from "@nestjs/elasticsearch";
+// import { ElasticsearchModule } from "@nestjs/elasticsearch";
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -15,10 +15,10 @@ require('dotenv').config({path: `environments/${process.env.NODE_ENV || 'local'}
 @Module({
   imports: [
     TypegooseModule.forRoot(process.env.MONGO_DB_URL),
-    ElasticsearchModule.register({
-      host: process.env.ELASTICSEARCH_HOST,
-      log: process.env.ELASTICSEARCH_LOG
-    }),
+    // ElasticsearchModule.register({
+    //   host: process.env.ELASTICSEARCH_HOST,
+    //   log: process.env.ELASTICSEARCH_LOG
+    // }),
     ModelsModule,
     AuthModule
   ],

@@ -1,6 +1,6 @@
 import { DocumentType, prop } from '@typegoose/typegoose';
 import { ObjectId } from 'bson';
-import isEmail = require('validator/lib/isEmail');
+import { isEmail } from 'class-validator';
 
 export class User {
   _id: ObjectId | string;
