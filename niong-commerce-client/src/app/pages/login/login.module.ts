@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginPage } from './login.page';
-import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatxModule } from 'angular-material-extended';
 
 const routes: Routes = [

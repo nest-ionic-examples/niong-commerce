@@ -1,19 +1,19 @@
+@use '~@angular/material' as mat;
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$primary-palette: mat-palette($mat-indigo);
-$primary: mat-color($primary-palette);
-$primary-contrast: mat-color($primary-palette, default-contrast);
+$primary-palette: mat.define-palette(mat.$indigo-palette);
+$primary: mat.get-color-from-palette($primary-palette);
+$primary-contrast: mat.get-color-from-palette($primary-palette, default-contrast);
 
-$accent-palette: mat-palette($mat-pink, A200, A100, A400);
-$accent: mat-color($accent-palette);
-$accent-contrast: mat-color($accent-palette, default-contrast);
+$accent-palette: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$accent: mat.get-color-from-palette($accent-palette);
+$accent-contrast: mat.get-color-from-palette($accent-palette, default-contrast);
 
 // The warn palette is optional (defaults to red).
-$warn-palette: mat-palette($mat-red);
-$warn: mat-color($warn-palette);
-$warn-contrast: mat-color($warn-palette, default-contrast);
+$warn-palette: mat.define-palette(mat.$red-palette);
+$warn: mat.get-color-from-palette($warn-palette);
+$warn-contrast: mat.get-color-from-palette($warn-palette, default-contrast);

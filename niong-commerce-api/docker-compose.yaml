@@ -25,6 +25,6 @@ services:
     volumes:
       - .:/app
     working_dir: /app
-    command: bash -c "npm i && npm start"
+    command: bash -c "npm i -g pnpm && pnpm i && pnpm start"
     environment:
       NODE_ENV: local_docker

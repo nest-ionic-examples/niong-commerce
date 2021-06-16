@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserFormPage } from './user-form.page';
-import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatxModule } from 'angular-material-extended';
 import { ValidatorsModule } from 'ngx-validators';
 import { MatxGmapModule } from "angular-material-extended/matx-gmap";

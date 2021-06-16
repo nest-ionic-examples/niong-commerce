@@ -10,7 +10,9 @@ import { ModelsModule } from './models/models.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesController } from './controllers/categories/categories.controller';
 
-require('dotenv').config({path: `environments/${process.env.NODE_ENV || 'local'}.env`});
+import {config} from 'dotenv';
+
+config({path: `environments/${process.env.NODE_ENV || 'local'}.env`});
 
 @Module({
   imports: [

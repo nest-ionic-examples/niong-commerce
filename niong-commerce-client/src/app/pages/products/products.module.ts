@@ -4,13 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ProductsPage } from './products.page';
-import {
-  MatButtonModule,
-  MatIconModule,
-  MatPaginatorModule,
-  MatTableModule,
-  MatToolbarModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatxModule } from 'angular-material-extended';
 import { NgObjectPipesModule } from 'ngx-pipes';
 

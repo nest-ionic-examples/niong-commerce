@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 
 import { IsNotLoggedInGuard } from './is-not-logged-in.guard';
 import { RouterTestingModule } from '@angular/router/testing';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { MatxPromptController } from 'angular-material-extended';
 import { JwtHelperService } from '@auth0/angular-jwt';

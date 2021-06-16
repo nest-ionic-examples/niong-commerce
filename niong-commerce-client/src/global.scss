@@ -1,13 +1,10 @@
+@use '~@angular/material' as mat;
 @import "~bootstrap/scss/bootstrap-grid";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities/text";
 @import "~bootstrap/scss/utilities/sizing";
 @import "~bootstrap/scss/utilities/borders";
 @import "theme/variables";
-
-//@import '~@swimlane/ngx-datatable/release/index.css';
-//@import '~@swimlane/ngx-datatable/release/themes/material.css';
-//@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -16,15 +13,15 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat.core();
 
 //// Create the theme object (a Sass map containing all of the palettes).
-$app-theme: mat-light-theme($primary-palette, $accent-palette, $warn-palette);
+$app-theme: mat.define-light-theme($primary-palette, $accent-palette, $warn-palette);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($app-theme);
+@include mat.all-component-themes($app-theme);
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -54,7 +51,7 @@ mat-form-field .mat-form-field {
   background-color: $warn;
 
   .mat-simple-snackbar-action {
-    color: mat-color($accent-palette, 50);
+    color: mat.get-color-from-palette($accent-palette, 50);
   }
 }
 
