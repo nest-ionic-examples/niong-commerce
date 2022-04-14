@@ -1,23 +1,23 @@
 import { Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
 import { User } from '../../models/user.model';
-import { InjectModel } from 'nestjs-typegoose';
 import { Roles } from '../../auth/roles.decorator';
 import { Page } from '../find.controller';
 import { ParseOptionalIntPipe } from '../../pipes/parse-optional-int.pipe';
 import { CrudController } from '../crud.controller';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Controller('users')
 export class UsersController extends CrudController<User> {
-  constructor(@InjectModel(User) model) {
+  constructor(@InjectModel(User.name) model) {
     super(model, User);
   }
 
   @Get()
   @Roles('ADMIN', 'SELLER')
-  async find(@Query('page', ParseOptionalIntPipe) number: number = 1,
+  async find(@Query('page', ParseOptionalIntPipe) page: number = 1,
              @Query('size', ParseOptionalIntPipe) size: number = 20,
              @Query('sort') sort: string): Promise<User[] | Page<User> | User> {
-    return super.find(number, size, sort);
+    return super.find(page, size, sort);
   }
 
   @Get(':id')

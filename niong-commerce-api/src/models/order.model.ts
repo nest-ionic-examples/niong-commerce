@@ -1,21 +1,24 @@
-import { prop } from '@typegoose/typegoose';
+import { Prop, Schema } from '@nestjs/mongoose';
 import { ObjectId } from 'bson';
 import { User } from './user.model';
 import { Product } from './product.model';
 import isNotEmpty = require('is-not-empty');
+import mongoose from 'mongoose';
+import Types = mongoose.Schema.Types
 
+@Schema()
 export class Order {
   _id: ObjectId | string;
 
-  @prop({ref: User})
+  @Prop({ref: 'User', type: Types.ObjectId})
   owner: User | string;
 
-  @prop({default: 0})
+  @Prop({default: 0})
   total: number;
 
-  @prop({required: true})
+  @Prop({required: true})
   orderLines: { product: Product, quantity: number }[];
 
-  @prop({default: Date.now})
+  @Prop({default: Date.now})
   created: Date;
 }

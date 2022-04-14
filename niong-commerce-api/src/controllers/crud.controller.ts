@@ -1,13 +1,12 @@
-import { ReturnModelType } from '@typegoose/typegoose';
+import { Model } from 'mongoose';
 import { Body, Delete, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ReadController } from './read.controller';
 import { User } from '../models/user.model';
 import { CurrentUser } from '../auth/current-user.decorator';
-import { plainToClass } from "class-transformer";
-import { ClassType } from "class-transformer/ClassTransformer";
+import { ClassConstructor, plainToInstance } from 'class-transformer';
 
 export abstract class CrudController<T> extends ReadController<T> {
-  protected constructor(protected model: ReturnModelType<any>, protected type: ClassType<T>) {
+  protected constructor(protected model: Model<T>, protected type: ClassConstructor<T>) {
     super(model);
   }
 
@@ -25,8 +24,8 @@ export abstract class CrudController<T> extends ReadController<T> {
     return this.create(items, currentUser);
   }
 
-  saveOne(item: T | any, currentUser?: User): Promise<T> {
-    item = plainToClass(this.type, item);
+  saveOne(item: T | any, currentUser?: User, transformPlainToClass = true): Promise<T> {
+    if (transformPlainToClass) item = plainToInstance(this.type, item);
     if (item._id) {
       return this.model.findByIdAndUpdate(item._id, item, {new: true}).exec();
     } else {

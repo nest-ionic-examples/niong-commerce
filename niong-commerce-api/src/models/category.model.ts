@@ -1,14 +1,15 @@
-import { arrayProp, prop, Ref } from '@typegoose/typegoose';
+import { Prop, Schema } from '@nestjs/mongoose';
 import { ObjectId } from 'bson';
 import { Product } from './product.model';
 
+@Schema()
 export class Category {
   _id: string | ObjectId;
 
-  @prop({unique: true, maxlength: 100, required: true})
+  @Prop({unique: true, maxlength: 100, required: true})
   name: string;
 
-  @prop({maxlength: 1000})
+  @Prop({maxlength: 1000})
   description: string;
 
   // @arrayProp({ref: 'Product'})

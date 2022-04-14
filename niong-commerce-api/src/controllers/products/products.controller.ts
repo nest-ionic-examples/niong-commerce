@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Query } from '@nestjs/common';
 import { Product } from '../../models/product.model';
-import { InjectModel } from 'nestjs-typegoose';
+import { InjectModel } from '@nestjs/mongoose';
 import { CrudController } from '../crud.controller';
 import { Roles } from '../../auth/roles.decorator';
 import { User } from '../../models/user.model';
@@ -17,7 +17,7 @@ import { RolesMap } from '../../auth/roles-map.decorator';
   PUT: 'SELLER',
 })
 export class ProductsController extends CrudController<Product> {
-  constructor(@InjectModel(Product) model) {
+  constructor(@InjectModel(Product.name) model) {
     super(model, Product);
   }
 
@@ -54,13 +54,13 @@ export class ProductsController extends CrudController<Product> {
     // }
   }
 
-  async saveOne(item: any | Product, currentUser?: User): Promise<Product> {
+  async saveOne(item: Product, currentUser?: User): Promise<Product> {
     if (currentUser.role === 'SELLER') {
       const prevItem = await this.model.findById(item._id).populate('owner');
-      if (item._id && (currentUser._id !== prevItem.owner._id.toString())) {
+      if (item._id && (currentUser._id !== (prevItem.owner as User)._id.toString())) {
         throw new HttpException('Your Permissions are not enough to complete this operation', HttpStatus.FORBIDDEN)
       } else {
-        item.owner = currentUser;
+        item.owner = currentUser._id;
       }
     }
     return super.saveOne(item, currentUser);

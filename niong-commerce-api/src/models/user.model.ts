@@ -1,23 +1,35 @@
-import { DocumentType, prop } from '@typegoose/typegoose';
+import { Prop, raw, Schema } from '@nestjs/mongoose';
 import { ObjectId } from 'bson';
 import { isEmail } from 'class-validator';
+import mongoose from 'mongoose';
 
+const {String, Mixed} = mongoose.Schema.Types;
+
+@Schema({
+  toJSON: {
+    transform: doc => {
+        const obj = doc.toObject();
+        delete obj.password;
+        return obj;
+    }
+  }
+})
 export class User {
   _id: ObjectId | string;
 
-  @prop({
+  @Prop({
     required: true,
     maxlength: 20
   })
   firstName: string;
 
-  @prop({
+  @Prop({
     required: true,
     maxlength: 20
   })
   lastName: string;
 
-  @prop({
+  @Prop({
     required: true,
     maxlength: 20,
     minlength: 5,
@@ -25,22 +37,25 @@ export class User {
   })
   username: string;
 
-  @prop({
+  @Prop({
     required: true,
     validate: isEmail
   })
   email: string;
 
-  @prop({required: true})
+  @Prop({required: true})
   password: string;
 
-  @prop()
+  @Prop()
   loggedIn: boolean;
 
-  @prop({required: true, default: 'CUSTOMER'})
+  @Prop({required: true, default: 'CUSTOMER'})
   role: string;
 
-  @prop()
+  @Prop(raw({
+    address: { type: String },
+    coordinates: { type: Mixed },
+  }))
   address: {
     address?: string,
     coordinates?: {
@@ -49,18 +64,12 @@ export class User {
     }
   } = null;
 
-  @prop({default: Date.now})
+  @Prop({default: Date.now})
   created: Date;
 
-  @prop({default: () => true})
+  @Prop({default: true})
   enabled: boolean;
 
-  @prop({default: () => false})
+  @Prop({default: false})
   deleted: boolean;
-
-  toJSON(this: DocumentType<User>) {
-    const obj = this.toObject();
-    delete obj.password;
-    return obj;
-  }
 }

@@ -1,30 +1,35 @@
-import { arrayProp, index, prop, Ref } from '@typegoose/typegoose';
+import { Prop, Schema } from '@nestjs/mongoose';
 import { ObjectId } from 'bson';
 import { User } from './user.model';
 import { Category } from './category.model';
+import mongoose from 'mongoose';
+import { Transform } from 'class-transformer';
 
-@index({title: 'text', description: 'text'})
+// @index({title: 'text', description: 'text'})
+const {Types} = mongoose.Schema;
+
+@Schema()
 export class Product {
   _id: ObjectId | string;
 
-  @prop({ref: User})
-  owner: User | Ref<User> | any;
+  @Prop({type: Types.ObjectId, ref: 'User'})
+  owner: User | ObjectId | string;
 
-  @prop()
+  @Prop()
   title: string;
 
-  @prop()
+  @Prop()
   image: string;
 
-  @prop()
+  @Prop()
   description: string;
 
-  @prop()
+  @Prop()
   price: number;
 
-  @prop({default: Date.now})
+  @Prop({default: Date.now})
   created: Date;
 
-  @arrayProp({ref: Category})
-  categories: Ref<Category[]> | Category[] | string[];
+  @Prop({type: Types.ObjectId, ref: () => 'Category'})
+  categories: Category[] | string[];
 }
