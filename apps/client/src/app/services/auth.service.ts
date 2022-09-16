@@ -8,7 +8,8 @@ import { MatxPromptController } from 'angular-material-extended';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { currentUser$ } from './auth.subjects';
 import { User } from '../models/user';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { firstValueFrom, NEVER } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -57,10 +58,18 @@ export class AuthService {
   }
 
   private refreshCurrentUser() {
-    return this.http.get<User>(environment.api + 'me').pipe(tap(me => {
+    return firstValueFrom(this.http.get<User>(environment.api + 'me').pipe(
+      catchError(err => {
+        // this.router.navigateByUrl('/login')
+        console.log('err: ', err);
+        currentUser$.next(null);
+        return NEVER;
+      }),
+      tap(me => {
       this.permissionsSvc.addPermission(me.role);
       currentUser$.next(me);
-    })).toPromise();
+    })
+    ));
   }
 
 }

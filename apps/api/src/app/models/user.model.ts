@@ -1,19 +1,19 @@
-import { Prop, raw, Schema } from '@nestjs/mongoose';
+import { Prop } from '@typegoose/typegoose';
 import { ObjectId } from 'bson';
 import { isEmail } from 'class-validator';
 import mongoose from 'mongoose';
 
 const {String, Mixed} = mongoose.Schema.Types;
 
-@Schema({
-  toJSON: {
-    transform: doc => {
-        const obj = doc.toObject();
-        delete obj.password;
-        return obj;
-    }
-  }
-})
+// @Schema({
+//   toJSON: {
+//     transform: doc => {
+//         const obj = doc.toObject();
+//         delete obj.password;
+//         return obj;
+//     }
+//   }
+// })
 export class User {
   _id: ObjectId | string;
 
@@ -52,10 +52,10 @@ export class User {
   @Prop({required: true, default: 'CUSTOMER'})
   role: string;
 
-  @Prop(raw({
+  @Prop({
     address: { type: String },
     coordinates: { type: Mixed },
-  }))
+  })
   address: {
     address?: string,
     coordinates?: {

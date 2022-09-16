@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
 import { Body, Delete, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ReadController } from './read.controller';
-import { User } from '../models/user.model';
-import { CurrentUser } from '../auth/current-user.decorator';
+import { User } from '../../models/user.model';
+import { CurrentUser } from '../../auth/current-user.decorator';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 
 export abstract class CrudController<T> extends ReadController<T> {

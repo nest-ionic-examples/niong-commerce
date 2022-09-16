@@ -27,3 +27,9 @@ db.users.insert([{
   deleted: false,
   loggedIn: true
 }]);
+
+for (let i = 0; i < 40; i++) {
+  db.products.insert(
+    {title: `Product ${i}`, description: `Product ${i} Description`, price: 100}
+  )
+}

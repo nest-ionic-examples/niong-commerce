@@ -6,7 +6,7 @@ export class FindByIdController<T> {
   protected constructor(protected model: Model<T>) {}
 
   @Get(':id')
-  findById(@Param('id') id: string): Promise<T> {
+  findById(@Param('id') id: string, ...extraArgs): Promise<T> {
     return this.model.findById(id).exec();
   }
 

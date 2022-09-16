@@ -1,4 +1,4 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop } from '@typegoose/typegoose';
 import { ObjectId } from 'bson';
 import { User } from './user.model';
 import { Product } from './product.model';
@@ -6,7 +6,6 @@ import { Product } from './product.model';
 import mongoose from 'mongoose';
 import Types = mongoose.Schema.Types
 
-@Schema()
 export class Order {
   _id: ObjectId | string;
 

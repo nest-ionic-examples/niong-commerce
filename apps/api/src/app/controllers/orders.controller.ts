@@ -1,44 +1,49 @@
 import {
   Controller,
-  Delete, ForbiddenException,
+  Delete,
+  ForbiddenException,
   Get,
-  HttpException,
-  HttpStatus,
   Param,
   Query,
   UnprocessableEntityException
 } from '@nestjs/common';
-import { Order } from '../../models/order.model';
-import { InjectModel } from '@nestjs/mongoose';
-import { User } from '../../models/user.model';
-import { CrudController } from '../crud.controller';
-import { Roles } from '../../auth/roles.decorator';
-import { Product } from '../../models/product.model';
-import mongoose, { Model } from 'mongoose';
-import { CurrentUser } from '../../auth/current-user.decorator';
-import { ParseOptionalIntPipe } from '../../pipes/parse-optional-int.pipe';
+import { Order } from '../models/order.model';
+import { InjectModel } from 'nestjs-typegoose';
+import { User } from '../models/user.model';
+import { CrudController } from '../base/controllers/crud.controller';
+import { Roles } from '../auth/roles.decorator';
+import { Product } from '../models/product.model';
+import { Model } from 'mongoose';
+import { CurrentUser } from '../auth/current-user.decorator';
+import { ParseOptionalIntPipe } from '../pipes/parse-optional-int.pipe';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Orders")
 @Controller('orders')
 export class OrdersController extends CrudController<Order> {
-  constructor(@InjectModel(Order.name) model, @InjectModel(Product.name) private productModel: Model<Product>) {
+  constructor(@InjectModel(Order) model: Model<Order>,
+              @InjectModel(Product) private productModel: Model<Product>) {
     super(model, Order);
   }
 
   @Get(':id')
-  async findById_(@Param('id') id: string, @CurrentUser() currentUser: User) {
+  async findById(@Param('id') id: string, @CurrentUser() currentUser: User) {
     const order = await super.findById(id);
     if (['ADMIN', 'SELLER'].includes(currentUser.role)
       || currentUser.role === 'CUSTOMER' && order.owner && order.owner.toString() === currentUser._id) {
       return order;
     } else {
-      throw new HttpException('Not Allowed', HttpStatus.FORBIDDEN)
+      throw new ForbiddenException(`User not allowed to see the order ${id}`)
     }
   }
 
   @Get()
-  async find_(@Query('page', ParseOptionalIntPipe) number = 1,
-              @Query('size', ParseOptionalIntPipe) size = 20,
-              @Query('sort') sort: string,
+  @ApiQuery({name: '$page', required: false, type: Number})
+  @ApiQuery({name: '$size', required: false, type: Number})
+  @ApiQuery({name: '$sort', required: false, type: String})
+  async find(@Query('$page', ParseOptionalIntPipe) number = 1,
+              @Query('$size', ParseOptionalIntPipe) size = 20,
+              @Query('$sort') sort = '',
               @CurrentUser() currentUser: User) {
     if (['ADMIN', 'SELLER'].includes(currentUser.role)) {
       return super.find(number, size, sort);

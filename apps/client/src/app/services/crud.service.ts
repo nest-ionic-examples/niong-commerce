@@ -12,8 +12,8 @@ export abstract class CrudService<T extends { _id?: string }> {
     this.baseUrl = environment.api + baseUrl;
   }
 
-  protected stringifyParams(params?: Params) {
-    params = {limit: 0, ...params};
+  protected stringifyParams(params: Params = {}) {
+    // params = {limit: 0, ...params};
     for (const key of Object.keys(params)) {
       if (typeof params[key] !== 'string' && typeof params[key] !== 'number') {
         params[key] = JSON.stringify(params[key]);
@@ -28,15 +28,15 @@ export abstract class CrudService<T extends { _id?: string }> {
   }
 
   find(params?: Params): Observable<Page<T>> {
-    params = this.stringifyParams(params);
-    return this.http.get<any>(this.baseUrl, {params});
+    // params = this.stringifyParams(params);
+    return this.http.get<Page<T>>(this.baseUrl, {params});
   }
 
   findAll(params?: Params) {
     return this.find(params).pipe(map(itemsPage => itemsPage.items));
   }
 
-  save(item: T | any) {
+  save(item: Partial<T>) {
     if (item._id) {
       return this.http.put<T>(this.baseUrl, item);
     } else {

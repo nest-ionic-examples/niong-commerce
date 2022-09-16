@@ -7,5 +7,5 @@ import { Category } from '../models/category';
   providedIn: 'root'
 })
 export class CategoriesService extends CrudService<Category>{
-  constructor(http: HttpClient) { super('orders', http); }
+  constructor(http: HttpClient) { super('categories', http); }
 }

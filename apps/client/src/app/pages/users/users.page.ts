@@ -1,101 +1,31 @@
 import { Component } from '@angular/core';
 import { User } from '../../models/user';
-import { Page } from '../../models/page';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatxPromptController } from 'angular-material-extended';
 import { UsersService } from '../../services/users.service';
-import { delay, map, switchMap } from 'rxjs/operators';
-import { PageEvent } from '@angular/material/paginator';
-import { debounceFn } from 'debounce-decorator-ts';
 import * as moment from 'moment';
-import { Moment } from 'moment';
+import { BaseTablePage } from '../../components/base-table.page';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.page.html',
   styleUrls: ['./users.page.scss'],
 })
-export class UsersPage {
+export class UsersPage extends BaseTablePage<User> {
 
   columns = ['username', 'name', 'email', 'role', 'created', 'actions'];
 
-  dataSource$: Observable<User[]>;
-
-  params: Params = {};
-
-  page: Page<User> = {
-    size: 20,
-    number: 1
-  };
-
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private productsSvc: UsersService,
-              private promptCtrl: MatxPromptController) {
-    this.dataSource$ = route.queryParams.pipe(delay(0), switchMap(params => {
-      this.params = {...params};
-      delete this.params['_refresh'];
-      const page = Number(params['page']);
-      const limit = Number(params['limit']);
-      const _params = Object.assign({}, params, {
-        page: page && page > 0 ? page : 1,
-        limit: limit && limit > 0 ? limit : 20
-      });
-      return this.productsSvc.find(_params).pipe(map(_page => {
-        this.page = _page;
-        return _page.items ?? [];
-      }));
-    }));
-  }
-
-  navigate(params: Params) {
-    this.router.navigate([], {relativeTo: this.route, queryParams: params});
-  }
-
-  handlePageChange(event: PageEvent) {
-    this.navigate({...this.params, page: event.pageIndex + 1, limit: event.pageSize});
-  }
-
-  @debounceFn(500)
-  search(search: string) {
-    this.navigate({search: search || null});
-  }
-
-  refresh() {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {_refresh: new Date().getTime()},
-      skipLocationChange: true
-    });
-  }
-
-  deleteById(_id: string) {
-    this.promptCtrl.prompt({
-      message: 'Are you sure you want to delete this item?',
-      actions: ['No', {
-        text: 'Yes',
-        color: 'warn',
-        showLoading: true,
-        callback: _ => this.productsSvc.deleteById(_id).toPromise().then(() => this.refresh())
-      }]
-    })
+  constructor(router: Router,
+              route: ActivatedRoute,
+              productsSvc: UsersService,
+              promptCtrl: MatxPromptController) {
+    super(router, route, productsSvc, promptCtrl)
   }
 
   filter() {
     this.promptCtrl.prompt({
-      title: 'Filter Products',
+      title: 'Filter Users',
       inputs: [{
-        type: 'number',
-        name: 'min_price',
-        label: 'Min. Price',
-        value: this.params['min_price']
-      }, {
-        type: 'number',
-        name: 'max_price',
-        label: 'Max. Price',
-        value: this.params['max_price']
-      }, {
         type: 'date',
         name: 'created_after',
         label: 'Created After',
@@ -111,7 +41,7 @@ export class UsersPage {
         type: 'submit',
         color: 'primary',
         callback: result => {
-          if (result.created_after) result.created_after = (result.created_after as Moment).format('Y-M-D');
+          if (result.created_after) result.created_after = result.created_after.format('Y-M-D');
           if (result.created_before) result.created_before = result.created_before.format('Y-M-D');
           this.navigate(result);
         }

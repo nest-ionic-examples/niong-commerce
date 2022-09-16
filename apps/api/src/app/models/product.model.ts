@@ -1,18 +1,15 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { index, Prop } from '@typegoose/typegoose';
 import { ObjectId } from 'bson';
 import { User } from './user.model';
 import { Category } from './category.model';
-import mongoose from 'mongoose';
 // import { Transform } from 'class-transformer';
 
-// @index({title: 'text', description: 'text'})
-const {Types} = mongoose.Schema;
 
-@Schema()
+@index({title: 'text', description: 'text'})
 export class Product {
   _id: ObjectId | string;
 
-  @Prop({type: Types.ObjectId, ref: 'User'})
+  @Prop({type: ObjectId, ref: 'User'})
   owner: User | ObjectId | string;
 
   @Prop()
@@ -30,6 +27,6 @@ export class Product {
   @Prop({default: Date.now})
   created: Date;
 
-  @Prop({type: Types.ObjectId, ref: () => 'Category'})
+  @Prop({type: ObjectId, ref: () => 'Category'})
   categories: Category[] | string[];
 }

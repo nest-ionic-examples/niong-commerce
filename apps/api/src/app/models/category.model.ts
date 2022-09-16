@@ -1,8 +1,7 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Ref } from '@typegoose/typegoose';
 import { ObjectId } from 'bson';
 import { Product } from './product.model';
 
-@Schema()
 export class Category {
   _id: string | ObjectId;
 
@@ -12,6 +11,6 @@ export class Category {
   @Prop({maxlength: 1000})
   description: string;
 
-  // @arrayProp({ref: 'Product'})
-  // products: Ref<Product[]> | Product[] | string[];
+  @Prop({ref: 'Product'})
+  products: Ref<Product>[] | Product[] | string[];
 }

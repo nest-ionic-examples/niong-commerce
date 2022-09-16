@@ -1,5 +1,5 @@
 import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from 'nestjs-typegoose';
 import { Model } from 'mongoose';
 import { User } from '../models/user.model';
 import { expressjwt } from 'express-jwt';
@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {
+  constructor(@InjectModel(User) private readonly userModel: Model<User>) {
   } // <1>
 
   use(req, res, next) {

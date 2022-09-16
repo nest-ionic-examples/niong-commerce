@@ -1,31 +1,41 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Query } from '@nestjs/common';
-import { Product } from '../../models/product.model';
-import { InjectModel } from '@nestjs/mongoose';
-import { CrudController } from '../crud.controller';
-import { Roles } from '../../auth/roles.decorator';
-import { User } from '../../models/user.model';
-import { Page } from '../find.controller';
-import { ParseOptionalIntPipe } from '../../pipes/parse-optional-int.pipe';
-import { ParseStartOfDayPipe } from '../../pipes/parse-start-of-day.pipe';
-import { ParseEndOfDayPipe } from '../../pipes/parse-end-of-day.pipe';
-import { ParseNumberPipe } from '../../pipes/parse-number.pipe';
-import { RolesMap } from '../../auth/roles-map.decorator';
+import { Product } from '../models/product.model';
+import { InjectModel } from 'nestjs-typegoose';
+import { CrudController } from '../base/controllers/crud.controller';
+import { Roles } from '../auth/roles.decorator';
+import { User } from '../models/user.model';
+import { Page } from '../base/controllers/find.controller';
+import { ParseOptionalIntPipe } from '../pipes/parse-optional-int.pipe';
+import { ParseStartOfDayPipe } from '../pipes/parse-start-of-day.pipe';
+import { ParseEndOfDayPipe } from '../pipes/parse-end-of-day.pipe';
+import { ParseNumberPipe } from '../pipes/parse-number.pipe';
+import { RolesMap } from '../auth/roles-map.decorator';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Products")
 @Controller('products')
 @RolesMap({
   POST: 'SELLER',
   PUT: 'SELLER',
 })
 export class ProductsController extends CrudController<Product> {
-  constructor(@InjectModel(Product.name) model) {
+  constructor(@InjectModel(Product) model) {
     super(model, Product);
   }
 
   @Get()
-  async find_(@Query('page', ParseOptionalIntPipe) number: number = 1,
-              @Query('size', ParseOptionalIntPipe) size: number = 20,
-              @Query('sort') sort: string,
-              @Query('search') search: string,
+  @ApiQuery({name: '$page', required: false, type: Number})
+  @ApiQuery({name: '$size', required: false, type: Number})
+  @ApiQuery({name: '$sort', required: false, type: String})
+  @ApiQuery({name: '$search', required: false, type: String})
+  @ApiQuery({name: 'min_price', required: false})
+  @ApiQuery({name: 'max_price', required: false})
+  @ApiQuery({name: 'created_after', required: false})
+  @ApiQuery({name: 'created_before', required: false})
+  async find(@Query('$page', ParseOptionalIntPipe) number = 1,
+              @Query('$size', ParseOptionalIntPipe) size = 20,
+              @Query('$sort') sort = '',
+              @Query('$search') search: string,
               @Query('min_price', ParseNumberPipe) min_price: number,
               @Query('max_price', ParseNumberPipe) max_price: number,
               @Query('created_after', ParseStartOfDayPipe) created_after: Date,
