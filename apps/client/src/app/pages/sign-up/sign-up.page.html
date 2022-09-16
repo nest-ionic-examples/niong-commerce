@@ -1,0 +1,51 @@
+<mat-toolbar>
+  <matx-back-button></matx-back-button>
+  <div class="col">Sign Up</div>
+</mat-toolbar>
+
+<section class="container pt-3">
+  <form #form="ngForm" (submit)="submit()">
+    <div class="row">
+      <matx-input label="First Name" name="firstName" #firstName="ngModel" [(ngModel)]="model.firstName"
+                  required maxlength="20" class="col-md-6">
+        <matx-errors [field]="firstName"></matx-errors>
+      </matx-input>
+
+      <matx-input label="Last Name" name="lastName" #lastName="ngModel" [(ngModel)]="model.lastName"
+                  required maxlength="20" class="col-md-6">
+        <matx-errors [field]="lastName"></matx-errors>
+      </matx-input>
+    </div>
+
+    <matx-input label="Username" name="username" #username="ngModel" [(ngModel)]="model.username"
+                required maxlength="20" minlength="5">
+      <matx-errors [field]="username"></matx-errors>
+    </matx-input>
+
+    <matx-input label="Email" name="email" #email="ngModel" [(ngModel)]="model.email"
+                required email="normal">
+      <matx-errors [field]="email"></matx-errors>
+    </matx-input>
+
+    <matx-input label="Confirm Email" name="confirmEmail" #confirmEmail="ngModel" [(ngModel)]="model.confirmEmail"
+                required email="normal" equalTo="email">
+      <matx-errors [field]="confirmEmail" [errorMessages]="{notEqualTo: 'The emails do not match'}"></matx-errors>
+    </matx-input>
+
+    <matx-input label="Password" name="password" #password="ngModel" [(ngModel)]="model.password"
+                type="password" required maxlength="20" minlength="5">
+      <matx-errors [field]="password"></matx-errors>
+    </matx-input>
+
+    <matx-input label="Confirm Password" name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="model.confirmPassword"
+                type="password" required maxlength="20" minlength="5" [equalTo]="password.control">
+      <matx-errors [field]="confirmPassword" [errorMessages]="{notEqualTo: 'The passwords do not match'}"></matx-errors>
+    </matx-input>
+
+    <div class="row">
+      <div class="col-6">
+        <button mat-raised-button type="submit" class="w-100" color="primary" [disabled]="form.invalid">Register</button>
+      </div>
+    </div>
+  </form>
+</section>

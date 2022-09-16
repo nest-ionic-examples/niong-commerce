@@ -1,0 +1,30 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="sideNavCtrl.isMobile ? 'dialog' : 'navigation'"
+               [mode]="sideNavCtrl.isMobile ? 'over' : 'side'"
+               [opened]="(!sideNavCtrl.isMobile || sideNavCtrl.opened)"
+               (openedChange)="sideNavCtrl.opened = $event">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <ng-template ngFor let-page [ngForOf]="appPages">
+        <a mat-list-item *ngxPermissionsOnly="page.permissions ?? []" [routerLink]="page.url" routerLinkActive="active"
+           (click)="sideNavCtrl.opened = false">
+          <mat-icon mat-list-icon>{{page.icon}}</mat-icon>
+          <h4 mat-line>{{page.title}}</h4>
+        </a>
+      </ng-template>
+      <mat-list-item *ngIf="(loggedIn$ | async) === false" routerLink="/login" routerLinkActive="active"
+                     (click)="sideNavCtrl.opened = false">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        <h4 mat-line>Login</h4>
+      </mat-list-item>
+      <mat-list-item *ngIf="loggedIn$ | async" (click)="logout()">
+        <mat-icon mat-list-icon>logout</mat-icon>
+        <h4 mat-line>Logout</h4>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
