@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginPage } from './login.page';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatxModule } from 'angular-material-extended';
+import { MatxErrorsModule, MatxInputModule, MatxMenuButtonModule } from 'matx-core';
 
 const routes: Routes = [
   {
@@ -21,8 +21,10 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes),
     MatToolbarModule,
-    MatxModule,
-    MatButtonModule
+    MatButtonModule,
+    MatxMenuButtonModule,
+    MatxInputModule,
+    MatxErrorsModule
   ],
   declarations: [LoginPage]
 })

@@ -6,8 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserFormPage } from './user-form.page';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatxModule } from 'angular-material-extended';
 import { ValidatorsModule } from 'ngx-validators';
+import { MatxBackButtonModule, MatxErrorsModule, MatxInputModule, MatxSelectModule } from 'matx-core';
 // import { MatxGmapModule } from "angular-material-extended/matx-gmap";
 
 const routes: Routes = [
@@ -21,8 +21,11 @@ const routes: Routes = [
     ValidatorsModule,
     RouterModule.forChild(routes),
     MatToolbarModule,
-    MatxModule,
     MatButtonModule,
+    MatxBackButtonModule,
+    MatxInputModule,
+    MatxSelectModule,
+    MatxErrorsModule,
     // MatxGmapModule
   ],
   declarations: [UserFormPage]

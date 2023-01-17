@@ -1,6 +1,6 @@
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Page } from '../models/page';
-import { MatxPromptController } from 'angular-material-extended';
+import { MatxPromptService } from 'matx-core';
 import { delay, map, switchMap, tap } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
 import { debounceFn } from 'debounce-decorator-ts';
@@ -26,7 +26,7 @@ export abstract class BaseTablePage<T> {
   protected constructor(protected router: Router,
                         protected route: ActivatedRoute,
                         protected crudSvc: CrudService<T>,
-                        protected promptCtrl: MatxPromptController) {
+                        protected promptCtrl: MatxPromptService) {
     this.dataSource$ = route.queryParams.pipe(delay(0), switchMap(params => {
       this.params = {...params};
       delete this.params['_refresh'];
@@ -66,7 +66,7 @@ export abstract class BaseTablePage<T> {
   deleteById(_id: string) {
     this.promptCtrl.prompt({
       message: 'Are you sure you want to delete this item?',
-      actions: ['No', {
+      actions: [{text: 'No'}, {
         text: 'Yes',
         color: 'warn',
         showLoading: true,

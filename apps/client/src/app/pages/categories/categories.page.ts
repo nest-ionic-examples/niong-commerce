@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Category } from '../../models/category';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatxPromptController } from 'angular-material-extended';
+import { MatxPromptService } from 'matx-core';
 import { CategoriesService } from '../../services/categories.service';
 import { BaseTablePage } from '../../components/base-table.page';
 
@@ -17,8 +17,8 @@ export class CategoriesPage extends BaseTablePage<Category> {
   constructor(router: Router,
               route: ActivatedRoute,
               svc: CategoriesService,
-              promptCtrl: MatxPromptController) {
-    super(router, route, svc, promptCtrl);
+              promptSvc: MatxPromptService) {
+    super(router, route, svc, promptSvc);
   }
 
 }

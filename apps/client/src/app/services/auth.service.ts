@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxPermissionsService } from 'ngx-permissions';
-import { MatxPromptController } from 'angular-material-extended';
+import { MatxPromptService } from 'matx-core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { currentUser$ } from './auth.subjects';
 import { User } from '../models/user';
@@ -22,7 +22,7 @@ export class AuthService {
               private http: HttpClient,
               private snackBar: MatSnackBar,
               private permissionsSvc: NgxPermissionsService,
-              private promptCtrl: MatxPromptController,
+              private promptCtrl: MatxPromptService,
               jwtSvc: JwtHelperService,
               route: ActivatedRoute) {
     route.queryParams.subscribe(queryParams => this.redirectUrl = queryParams['redirectUrl']);

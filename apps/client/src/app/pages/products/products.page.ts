@@ -1,17 +1,11 @@
 import { Component } from '@angular/core';
 import { Product } from '../../models/product';
-import { Observable } from 'rxjs';
-import { Page } from '../../models/page';
-import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
-import { delay, map, switchMap } from 'rxjs/operators';
-import { MatxPromptController } from 'angular-material-extended';
+import { MatxPromptService } from 'matx-core';
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { debounceFn } from 'debounce-decorator-ts';
 import { BaseTablePage } from '../../components/base-table.page';
-import { OrdersService } from '../../services/orders.service';
 
 @Component({
   selector: 'app-products',
@@ -25,7 +19,7 @@ export class ProductsPage extends BaseTablePage<Product> {
   constructor(router: Router,
               route: ActivatedRoute,
               svc: ProductsService,
-              promptCtrl: MatxPromptController) {
+              promptCtrl: MatxPromptService) {
     super(router, route, svc, promptCtrl);
   }
 
@@ -53,11 +47,11 @@ export class ProductsPage extends BaseTablePage<Product> {
         label: 'Created Before',
         value: this.params['created_before'] && moment(this.params['created_before'], 'Y-M-D') || moment()
       }],
-      actions: ['Cancel', {
+      actions: [/*'Cancel', */{
         text: 'Filter',
         type: 'submit',
         color: 'primary',
-        callback: result => {
+        callback: (result: any) => {
           if (result.created_after) result.created_after = (result.created_after as Moment).format('Y-M-D');
           if (result.created_before) result.created_before = result.created_before.format('Y-M-D');
           this.navigate(result);

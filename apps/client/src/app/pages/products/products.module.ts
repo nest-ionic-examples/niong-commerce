@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatxModule } from 'angular-material-extended';
 import { NgObjectPipesModule } from 'ngx-pipes';
+import { MatxInputModule, MatxMenuButtonModule } from 'matx-core';
 
 const routes: Routes = [
   {path: '', component: ProductsPage},
@@ -28,12 +28,13 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes),
     MatToolbarModule,
-    MatxModule,
     MatButtonModule,
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    NgObjectPipesModule
+    NgObjectPipesModule,
+    MatxMenuButtonModule,
+    MatxInputModule
   ],
   declarations: [ProductsPage]
 })

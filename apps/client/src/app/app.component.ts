@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { MatxSidenavMenuController } from 'angular-material-extended';
+import { MatxSidenavMenuService } from 'matx-core';
 import { AuthService } from './services/auth.service';
 import { loggedIn$ } from './services/auth.subjects';
 
@@ -21,20 +21,20 @@ export class AppComponent {
   loggedIn$ = loggedIn$;
 
   constructor(private breakpointObserver: BreakpointObserver,
-              public sideNavCtrl: MatxSidenavMenuController,
+              public sideNavSvc: MatxSidenavMenuService,
               public authSvc: AuthService) {
     this.breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
     ]).subscribe(result => {
-      sideNavCtrl.isMobile = result.matches;
-      sideNavCtrl.opened = !sideNavCtrl.isMobile;
+      sideNavSvc.isMobile = result.matches;
+      sideNavSvc.opened = !sideNavSvc.isMobile;
     })
   }
 
   logout() {
     this.authSvc.logout();
-    this.sideNavCtrl.opened = false;
+    this.sideNavSvc.opened = false;
   }
 
 }

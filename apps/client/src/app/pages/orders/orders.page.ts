@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatxPromptController } from 'angular-material-extended';
+import { MatxPromptService } from 'matx-core';
 import { OrdersService } from '../../services/orders.service';
 import { Order } from '../../models/order';
 import { BaseTablePage } from '../../components/base-table.page';
@@ -19,8 +19,8 @@ export class OrdersPage extends BaseTablePage<Order> {
   constructor(router: Router,
               route: ActivatedRoute,
               productsSvc: OrdersService,
-              promptCtrl: MatxPromptController) {
-    super(router, route, productsSvc, promptCtrl);
+              promptSvc: MatxPromptService) {
+    super(router, route, productsSvc, promptSvc);
   }
 
   filter() {
@@ -37,11 +37,11 @@ export class OrdersPage extends BaseTablePage<Order> {
         label: 'Created Before',
         value: this.params['created_before'] && moment(this.params['created_before'], 'Y-M-D') || moment()
       }],
-      actions: ['Cancel', {
+      actions: [{text: 'Cancel'}, {
         text: 'Filter',
         type: 'submit',
         color: 'primary',
-        callback: result => {
+        callback: (result: any) => {
           if (result.created_after) result.created_after = (result.created_after as Moment).format('Y-M-D');
           if (result.created_before) result.created_before = result.created_before.format('Y-M-D');
           this.navigate(result);

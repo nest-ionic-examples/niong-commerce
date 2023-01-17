@@ -5,12 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { OrdersPage } from './orders.page';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatxModule } from 'angular-material-extended';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { NgObjectPipesModule } from 'ngx-pipes';
 import { MatButtonModule } from '@angular/material/button';
+import { MatxInputModule, MatxMenuButtonModule } from 'matx-core';
 
 const routes: Routes = [
   {path: '', component: OrdersPage}
@@ -22,12 +22,13 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes),
     MatToolbarModule,
-    MatxModule,
     MatPaginatorModule,
     MatIconModule,
     MatTableModule,
     NgObjectPipesModule,
-    MatButtonModule
+    MatButtonModule,
+    MatxMenuButtonModule,
+    MatxInputModule
   ],
   declarations: [OrdersPage]
 })

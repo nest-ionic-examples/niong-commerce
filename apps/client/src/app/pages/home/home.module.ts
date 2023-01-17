@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatxModule } from 'angular-material-extended';
+import { MatxMenuButtonModule } from 'matx-core';
 
 const routes: Routes = [
   {path: '', component: HomePage}
@@ -17,7 +17,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes),
     MatToolbarModule,
-    MatxModule
+    MatxMenuButtonModule
   ],
   declarations: [HomePage]
 })

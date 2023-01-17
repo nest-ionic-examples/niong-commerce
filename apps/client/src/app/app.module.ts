@@ -14,7 +14,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MatxModule } from 'angular-material-extended';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
@@ -35,7 +34,6 @@ export function getUserToken() {
     BrowserAnimationsModule,
     LayoutModule,
     HttpClientModule,
-    MatxModule,
     // MatxGmapModule,
     MatMomentDateModule,
     AgmCoreModule.forRoot({

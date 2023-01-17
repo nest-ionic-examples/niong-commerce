@@ -6,8 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignUpPage } from './sign-up.page';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatxModule } from 'angular-material-extended';
 import { ValidatorsModule } from 'ngx-validators';
+import { MatxBackButtonModule, MatxErrorsModule, MatxInputModule } from 'matx-core';
 
 const routes: Routes = [
   {
@@ -22,9 +22,11 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes),
     MatToolbarModule,
-    MatxModule,
     MatButtonModule,
-    ValidatorsModule
+    ValidatorsModule,
+    MatxBackButtonModule,
+    MatxInputModule,
+    MatxErrorsModule
   ],
   declarations: [SignUpPage]
 })
