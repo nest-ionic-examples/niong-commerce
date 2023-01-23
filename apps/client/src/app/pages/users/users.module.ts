@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { NgObjectPipesModule } from 'ngx-pipes';
 import { MatxInputModule, MatxMenuButtonModule } from 'matx-core';
+import { MatxTableModule } from 'matx-table';
 
 const routes: Routes = [
   {path: '', component: UsersPage},
@@ -30,7 +31,8 @@ const routes: Routes = [
     MatTableModule,
     NgObjectPipesModule,
     MatxInputModule,
-    MatxMenuButtonModule
+    MatxMenuButtonModule,
+    MatxTableModule
   ],
   declarations: [UsersPage]
 })

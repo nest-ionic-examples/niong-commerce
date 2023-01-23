@@ -13,8 +13,6 @@ import { BaseTablePage } from '../../components/base-table.page';
 })
 export class UsersPage extends BaseTablePage<User> {
 
-  columns = ['username', 'name', 'email', 'role', 'created', 'actions'];
-
   constructor(router: Router,
               route: ActivatedRoute,
               productsSvc: UsersService,

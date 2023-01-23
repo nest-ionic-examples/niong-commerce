@@ -14,8 +14,6 @@ import { BaseTablePage } from '../../components/base-table.page';
 })
 export class ProductsPage extends BaseTablePage<Product> {
 
-  columns = ['title', 'image', 'description', 'price', 'created', 'actions'];
-
   constructor(router: Router,
               route: ActivatedRoute,
               svc: ProductsService,

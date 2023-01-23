@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { NgObjectPipesModule } from 'ngx-pipes';
 import { MatxInputModule, MatxMenuButtonModule } from 'matx-core';
+import { MatxTableModule } from 'matx-table';
 
 const routes: Routes = [
   {path: '', component: CategoriesPage}
@@ -28,7 +29,8 @@ const routes: Routes = [
     MatIconModule,
     NgObjectPipesModule,
     MatxInputModule,
-    MatxMenuButtonModule
+    MatxMenuButtonModule,
+    MatxTableModule
   ],
   declarations: [CategoriesPage]
 })

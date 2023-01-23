@@ -12,8 +12,6 @@ import { BaseTablePage } from '../../components/base-table.page';
 })
 export class CategoriesPage extends BaseTablePage<Category> {
 
-  columns = ['name', 'actions'];
-
   constructor(router: Router,
               route: ActivatedRoute,
               svc: CategoriesService,

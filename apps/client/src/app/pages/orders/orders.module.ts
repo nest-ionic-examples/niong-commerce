@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NgObjectPipesModule } from 'ngx-pipes';
 import { MatButtonModule } from '@angular/material/button';
 import { MatxInputModule, MatxMenuButtonModule } from 'matx-core';
+import { MatxTableModule } from 'matx-table';
 
 const routes: Routes = [
   {path: '', component: OrdersPage}
@@ -28,7 +29,8 @@ const routes: Routes = [
     NgObjectPipesModule,
     MatButtonModule,
     MatxMenuButtonModule,
-    MatxInputModule
+    MatxInputModule,
+    MatxTableModule
   ],
   declarations: [OrdersPage]
 })

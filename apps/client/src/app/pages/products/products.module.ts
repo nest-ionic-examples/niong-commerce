@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgObjectPipesModule } from 'ngx-pipes';
 import { MatxInputModule, MatxMenuButtonModule } from 'matx-core';
+import { MatxTableModule } from 'matx-table';
 
 const routes: Routes = [
   {path: '', component: ProductsPage},
@@ -34,7 +35,8 @@ const routes: Routes = [
     MatPaginatorModule,
     NgObjectPipesModule,
     MatxMenuButtonModule,
-    MatxInputModule
+    MatxInputModule,
+    MatxTableModule
   ],
   declarations: [ProductsPage]
 })

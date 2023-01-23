@@ -11,28 +11,20 @@
 </mat-toolbar>
 
 <section>
-  <mat-table [dataSource]="dataSource$">
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  <matx-table [data]="dataSource$" style="height: 100%">
+    <matx-column field="customer" header="Customer">
+      <div *matxCell="let row">{{row.owner.firstName}} {{row.owner.lastName}}</div>
+    </matx-column>
 
-    <ng-container matColumnDef="customer">
-      <mat-header-cell *matHeaderCellDef>Customer</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.owner.firstName}} {{row.owner.lastName}}</mat-cell>
-    </ng-container>
+    <matx-column field="created" header="Created">
+      <div *matxCell="let row">{{row.created | date}}</div>
+    </matx-column>
 
-    <ng-container matColumnDef="created">
-      <mat-header-cell *matHeaderCellDef style="flex: 0 0 60px">Created</mat-header-cell>
-      <mat-cell *matCellDef="let row" style="flex: 0 0 60px">{{row.created | date}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef style="flex: 0 calc(2 * 40px)"></mat-header-cell>
-      <mat-cell *matCellDef="let row" style="flex: 0 calc(2 * 40px)">
-        <button mat-icon-button [routerLink]="'edit/' + row._id"><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button (click)="deleteById(row._id)"><mat-icon>delete</mat-icon></button>
-      </mat-cell>
-    </ng-container>
-  </mat-table>
+    <ng-template matxColumn let-row width="100px" noResizable frozen="right">
+      <button mat-icon-button [routerLink]="'edit/' + row._id"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button (click)="deleteById(row._id)"><mat-icon>delete</mat-icon></button>
+    </ng-template>
+  </matx-table>
 </section>
 
 <mat-toolbar class="p-0 h-auto">

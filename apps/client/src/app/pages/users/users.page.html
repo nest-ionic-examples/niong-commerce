@@ -12,52 +12,34 @@
 </mat-toolbar>
 
 <section>
-  <mat-table [dataSource]="dataSource$">
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  <matx-table [data]="dataSource$" style="height: 100%">
 
-    <ng-container matColumnDef="username">
-      <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.username}}
-      </mat-cell>
-    </ng-container>
+    <matx-column field="username" header="Username"></matx-column>
 
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.firstName}} {{row.lastName}}</mat-cell>
-    </ng-container>
+    <matx-column header="Name">
+      <div *matxCell="let row">{{row.firstName}} {{row.lastName}}</div>
+    </matx-column>
 
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.email}}
-      </mat-cell>
-    </ng-container>
+    <matx-column field="email" header="Email"></matx-column>
 
-    <ng-container matColumnDef="role">
-      <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.role}}</mat-cell>
-    </ng-container>
+    <matx-column field="role" header="Role"></matx-column>
 
-    <ng-container matColumnDef="created">
-      <mat-header-cell *matHeaderCellDef style="flex: 0 0 60px">Created</mat-header-cell>
-      <mat-cell *matCellDef="let row" style="flex: 0 0 60px">{{row.created | date}}</mat-cell>
-    </ng-container>
+    <matx-column field="created" header="Created">
+      <div *matxCell="let row">{{row.created | date}}</div>
+    </matx-column>
 
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef style="flex: 0 calc(2 * 40px)"></mat-header-cell>
-      <mat-cell *matCellDef="let row" style="flex: 0 calc(2 * 40px)">
-        <button mat-icon-button [routerLink]="'edit/' + row._id"><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button (click)="deleteById(row._id)"><mat-icon>delete</mat-icon></button>
-      </mat-cell>
-    </ng-container>
-  </mat-table>
+    <ng-template matxColumn let-row width="100px" noResizable frozen="right">
+      <button mat-icon-button [routerLink]="'edit/' + row._id"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button (click)="deleteById(row._id)"><mat-icon>delete</mat-icon></button>
+    </ng-template>
+  </matx-table>
 </section>
 
 <mat-toolbar class="p-0 h-auto">
-<!--  <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons class="w-100"-->
-<!--                 [pageIndex]="page.number - 1"-->
-<!--                 [pageSize]="page.size"-->
-<!--                 [length]="page.total"-->
-<!--                 (page)="handlePageChange($event)"-->
-<!--  ></mat-paginator>-->
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons class="w-100"
+                   [pageIndex]="page.number - 1"
+                   [pageSize]="page.size"
+                   [length]="page.total"
+                   (page)="handlePageChange($event)"
+    ></mat-paginator>
 </mat-toolbar>

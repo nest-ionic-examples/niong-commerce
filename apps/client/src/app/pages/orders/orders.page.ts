@@ -14,8 +14,6 @@ import { BaseTablePage } from '../../components/base-table.page';
 })
 export class OrdersPage extends BaseTablePage<Order> {
 
-  columns = ['customer', 'created', 'actions'];
-
   constructor(router: Router,
               route: ActivatedRoute,
               productsSvc: OrdersService,

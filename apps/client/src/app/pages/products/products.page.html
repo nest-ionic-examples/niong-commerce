@@ -11,46 +11,26 @@
 </mat-toolbar>
 
 <section>
-  <mat-table [dataSource]="dataSource$">
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  <matx-table [data]="dataSource$" style="height: 100%">
+    <matx-column field="title" header="Title"></matx-column>
 
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.title}}
-      </mat-cell>
-    </ng-container>
+    <matx-column field="image" header="Image"></matx-column>
 
-    <ng-container matColumnDef="image">
-      <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.image}}
-      </mat-cell>
-    </ng-container>
+    <matx-column field="description" header="Description"></matx-column>
 
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.description}}
-      </mat-cell>
-    </ng-container>
+    <matx-column field="price" header="Price">
+      <div *matxCell="let row">{{row.price | currency}}</div>
+    </matx-column>
 
-    <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.price | currency}}</mat-cell>
-    </ng-container>
+    <matx-column field="created" header="Created">
+      <div *matxCell="let row">{{row.created | date}}</div>
+    </matx-column>
 
-    <ng-container matColumnDef="created">
-      <mat-header-cell *matHeaderCellDef style="flex: 0 0 60px">Created</mat-header-cell>
-      <mat-cell *matCellDef="let row" style="flex: 0 0 60px">{{row.created | date}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef style="flex: 0 calc(2 * 40px)"></mat-header-cell>
-      <mat-cell *matCellDef="let row" style="flex: 0 calc(2 * 40px)">
-        <button mat-icon-button [routerLink]="'edit/' + row._id"><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button (click)="deleteById(row._id)"><mat-icon>delete</mat-icon></button>
-      </mat-cell>
-    </ng-container>
-  </mat-table>
+    <ng-template matxColumn let-row width="100px" noResizable frozen="right">
+      <button mat-icon-button [routerLink]="'edit/' + row._id"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button (click)="deleteById(row._id)"><mat-icon>delete</mat-icon></button>
+    </ng-template>
+  </matx-table>
 </section>
 
 <mat-toolbar class="p-0 h-auto">
