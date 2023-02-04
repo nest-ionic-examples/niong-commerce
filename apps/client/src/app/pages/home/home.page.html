@@ -3,6 +3,29 @@
   <div class="col">Home</div>
 </mat-toolbar>
 
-<section class="container pt-5">
-  Home Content
+<section>
+  <div class="container py-3">
+    <article class="banner-wrap">
+      <img src="assets/images/banner.jpg" class="w-100 rounded">
+    </article>
+
+    <header class="row">
+      <h1 class="col">Popular products</h1>
+      <div class="col-auto"><a href="#" target="_blank" mat-stroked-button>See all</a></div>
+    </header>
+
+    <div class="row">
+      <a href="#" class="col-md-3 py-3" *ngFor="let product of popularProducts">
+        <mat-card>
+          <img mat-card-image [src]="product.image" [alt]="product.title">
+          <mat-card-title class="text-truncate" [matTooltip]="product.title ?? ''">{{product.title}}</mat-card-title>
+          <mat-card-content>
+            <div>{{product.description}}</div>
+            <div class="mt-1">${{product.price}}</div>
+          </mat-card-content>
+        </mat-card>
+      </a>
+    </div>
+
+  </div>
 </section>
