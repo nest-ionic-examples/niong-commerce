@@ -8,6 +8,10 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { ModelsModule } from './models/models.module';
 import { AuthModule } from './auth/auth.module';
 import { environment } from '../environments/environment';
+import { APP_FILTER } from '@nestjs/core';
+import { CastErrorFilter } from './filters/cast-error.filter';
+import { MongoErrorFilter } from './filters/mongo-error.filter';
+import { ValidationErrorFilter } from './filters/validation-error.filter';
 
 @Module({
   imports: [
@@ -25,6 +29,10 @@ import { environment } from '../environments/environment';
     ProductsController,
     CategoriesController
   ],
-  providers: [],
+  providers: [
+    {provide: APP_FILTER, useClass: CastErrorFilter},
+    {provide: APP_FILTER, useClass: MongoErrorFilter},
+    {provide: APP_FILTER, useClass: ValidationErrorFilter},
+  ],
 })
 export class AppModule {}

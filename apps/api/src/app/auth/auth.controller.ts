@@ -31,7 +31,7 @@ export class AuthController {
         _id: user._id,
         username: user.username,
         role: user.role
-      }, environment.jwtSecretPassword, {expiresIn: '1h'})
+      }, environment.jwtSecretPassword, {expiresIn: environment.jwtExpirationTime})
     };
   }
 

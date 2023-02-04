@@ -8,14 +8,13 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(@InjectModel(User) private readonly userModel: Model<User>) {
-  } // <1>
+  constructor(@InjectModel(User) private readonly userModel: Model<User>) {} // <1>
 
   use(req, res, next) {
-    expressjwt({ // <2>
-      secret: environment.jwtSecretPassword, // <3>
+    expressjwt({
+      secret: environment.jwtSecretPassword,
       algorithms: ['HS256'],
-      isRevoked: async (req1, token) => { // <4>
+      isRevoked: async (req1, token) => {
         const payload = token.payload as JwtPayload
         if (!payload._id) {
           throw new UnauthorizedException('The token contains invalid credentials or has expired');
@@ -26,6 +25,6 @@ export class AuthMiddleware implements NestMiddleware {
 
         return false;
       },
-    }).unless({path: ['/api', '/api/hello', '/api/login', '/api/sign-up']})(req, res, next); // <5>
+    }).unless({path: ['/api', '/api/hello', '/api/login', '/api/sign-up']})(req, res, next);
   }
 }

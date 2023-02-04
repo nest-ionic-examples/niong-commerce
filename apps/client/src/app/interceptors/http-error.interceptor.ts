@@ -14,6 +14,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     return next.handle(req).pipe(catchError(error => {
+      if (error.status === 401) {
+        sessionStorage.removeItem('user_token');
+        currentUser$.next(null);
+        if (this.router.url !== '/') {
+          this.router.navigate(['login'], {replaceUrl: true, queryParams: {redirectUrl: this.router.url}});
+        }
+      }
+
       if (error.statusText === 'Unknown Error') {
         this.showError('An unknown error has occurred, please check your internet connection.');
       }
@@ -26,13 +34,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.showError(errors.join('\n'));
           }
         } else if (error.error.message) {
-          if (error.error.message === 'No session found') {
-            sessionStorage.removeItem('user_token');
-            currentUser$.next(null);
-            if (this.router.url !== '/') {
-              this.router.navigate(['login'], {replaceUrl: true, queryParams: {redirectUrl: this.router.url}});
-            }
-          }
           this.showError(error.error.message);
         }
       } else if (error.message) {

@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -20,7 +19,7 @@ import { Router } from '@angular/router';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AgmCoreModule } from "@agm/core";
-// import { MatxGmapModule } from "angular-material-extended/matx-gmap";
+import { MatxPromptModule } from 'matx-core';
 
 export function getUserToken() {
   return sessionStorage.getItem('user_token');
@@ -34,7 +33,6 @@ export function getUserToken() {
     BrowserAnimationsModule,
     LayoutModule,
     HttpClientModule,
-    // MatxGmapModule,
     MatMomentDateModule,
     AgmCoreModule.forRoot({
       apiKey: environment.gmap_key,
@@ -54,7 +52,7 @@ export function getUserToken() {
     MatIconModule,
     MatListModule,
     MatSnackBarModule,
-    MatDialogModule,
+    MatxPromptModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true, deps: [MatSnackBar, Router]}

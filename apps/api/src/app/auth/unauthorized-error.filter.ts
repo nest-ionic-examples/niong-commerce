@@ -7,12 +7,15 @@ export class UnauthorizedErrorFilter implements ExceptionFilter {
     const response = host.switchToHttp().getResponse();
     const status = exception.status;
 
+    const message = exception.message === 'jwt expired'
+      ? 'Your session has expired please login again'
+      : exception.message;
     response
       .status(status)
       .json({
         statusCode: status,
         error: exception.code,
-        message: exception.message,
+        message,
       });
   }
 }
